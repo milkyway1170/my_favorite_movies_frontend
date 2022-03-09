@@ -1,8 +1,12 @@
 import React from 'react';
 import { Field } from 'react-final-form'
+import { useTranslation } from 'react-i18next';
+
 import { RememberMeStyles } from '../styles/Styles';
 
 const RememberMe = () => {
+  const { t, i18n } = useTranslation();
+
   return (
     <RememberMeStyles>
      <div>
@@ -13,7 +17,7 @@ const RememberMe = () => {
           value="true"
         />
         <label>
-          Запомнить меня
+          {t('Запомнить меня')}
         </label>
       </div>
     </RememberMeStyles>
