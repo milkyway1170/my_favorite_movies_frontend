@@ -2,7 +2,6 @@ import { FC } from "react";
 import { IGetMoviesList } from "../types/types";
 
 const GetMoviesList : FC <IGetMoviesList> = ({year, rating, genres}) => {
-  console.log ("GetMoviesList", year, rating, genres)
   let genresUrlPart = '';
   let yearUrlPart = '';
   let ratingUrlPart = '';
@@ -16,7 +15,6 @@ const GetMoviesList : FC <IGetMoviesList> = ({year, rating, genres}) => {
     genresUrlPart += '&with_genres=';
     genres.forEach(genre => genresUrlPart += genre+'%2C%20')
   }
-  console.log ((process.env.REACT_APP_GET_DISCOVER??'')+(process.env.REACT_APP_API_KEY??'')+'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false'+yearUrlPart+ratingUrlPart+genresUrlPart+'&with_watch_monetization_types=flatrate')
   fetch((process.env.REACT_APP_GET_DISCOVER??'')+(process.env.REACT_APP_API_KEY??'')+'&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false'+yearUrlPart+ratingUrlPart+genresUrlPart+'&with_watch_monetization_types=flatrate').then((response) => {
     return response.json();
   })
