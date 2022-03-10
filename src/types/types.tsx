@@ -9,3 +9,9 @@ export interface ISignIn{
   password: string;
   rememberMe?: boolean;
 }
+
+export interface IGetMoviesList{
+  year?: number;
+  rating?: number; 
+  genres?: Array<string>;
+}

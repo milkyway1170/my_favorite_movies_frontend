@@ -5,7 +5,6 @@ import { SingInInputStyles } from '../styles/Styles';
 import { ISingInInput } from '../types/types';
 
 const SingInInput : FC <ISingInInput> = ({name, lableText}) => {
-  
   return (
     <SingInInputStyles>
       <Field name ={name}> 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Form } from 'react-final-form'
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import CheckUsersData from './CheckUsersData';
 import { ISignIn } from '../types/types';
 import FormStyles from '../styles/Styles';
 import Logo from '../media/img/logo.png'
+import { GetGenresList, GetMoviesList } from './GetFunctions';
 
 const SignIn : FC = () => {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ const SignIn : FC = () => {
   }
 
   const onSubmit = (value:ISignIn) => {
+    GetMoviesList({year: 2010, rating: 5, genres: ['Comedy','Family']})
+    GetGenresList();
     CheckUsersData();
     if(verification(value.login, value.password)){
       const userData = {login: value.login, password: value.password, rememberMe: value.rememberMe};
