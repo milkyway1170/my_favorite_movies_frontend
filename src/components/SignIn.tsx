@@ -3,16 +3,18 @@ import { Form } from 'react-final-form'
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import SingInInput from './SingInInput'
+
 import Submit from './Submit';
 import RememberMe from './RememberMe';
-import CheckUsersData from './CheckUsersData';
-import { ISignIn } from '../types/types';
-import FormStyles from '../styles/Styles';
-import Logo from '../media/img/logo.png'
+import Logo from '../media/img/logo.png';
+import SingInInput from './SingInInput';
 import { GetGenresList, GetMoviesList } from './GetFunctions';
+import CheckUsersData from './CheckUsersData';
+import FormStyles from '../styles/Styles';
+import { ISignIn } from '../types/types';
 
 const SignIn : FC = () => {
+  const DEFAULT_VALUES = {year: 2010, rating: 5, genres: ['Comedy','Family']}
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -26,7 +28,7 @@ const SignIn : FC = () => {
   }
 
   const onSubmit = (value:ISignIn) => {
-    GetMoviesList({year: 2010, rating: 5, genres: ['Comedy','Family']})
+    GetMoviesList(DEFAULT_VALUES)
     GetGenresList();
     CheckUsersData();
     if(verification(value.login, value.password)){
