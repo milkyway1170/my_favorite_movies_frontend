@@ -15,3 +15,17 @@ export interface IGetMoviesList{
   rating?: number; 
   genres?: Array<string>;
 }
+
+export interface IGreeting{
+  name: string;
+}
+
+export interface IGenreItem{
+  name: string;
+  id: string;
+}
+
+export interface GenreItemProps{
+  genreItem: IGenreItem;
+  onClick: () => void;
+}

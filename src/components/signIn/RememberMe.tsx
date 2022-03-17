@@ -1,8 +1,19 @@
 import React from 'react';
 import { Field } from 'react-final-form'
 import { useTranslation } from 'react-i18next';
+import styled from "styled-components"
+import tw from "twin.macro"
 
-import { RememberMeStyles } from '../styles/Styles';
+const RememberMeStyles = styled.main`
+  & {
+    div {
+      ${tw`w-full flex flex-row justify-start items-center`}
+    }
+    input {
+      ${tw`w-auto mr-2`}
+    }
+  }
+`
 
 const RememberMe = () => {
   const { t, i18n } = useTranslation();

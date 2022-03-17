@@ -17,27 +17,23 @@ const FormStyles = styled.main.attrs({
   }
 `
 
-const SingInInputStyles = styled.main`
+const HeaderStyles = styled.main`
   & {
-    input {
-      ${tw`border-gray-300 w-full h-10 border-solid border rounded px-2`}
-    }
-    div {
-      ${tw`w-full flex flex-col justify-center items-start mb-2`}
-    }
+    
   }
 `
 
-const RememberMeStyles = styled.main`
+const GreetingStyles = styled.main`
   & {
-    div {
-      ${tw`w-full flex flex-row justify-start items-center`}
-    }
-    input {
-      ${tw`w-auto mr-2`}
-    }
+    
   }
 `
 
-export { RememberMeStyles, SingInInputStyles };
+const LogoutStyles = styled.main`
+  & {
+    
+  }
+`
+
+export { HeaderStyles, LogoutStyles, GreetingStyles };
 export default FormStyles;
