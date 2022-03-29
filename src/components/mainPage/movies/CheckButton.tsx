@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import Check from "./media/checking-mark.png";
 
 interface ICheckButton {
