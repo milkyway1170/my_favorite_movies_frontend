@@ -1,13 +1,21 @@
+import styled from "styled-components";
+import tw from "twin.macro";
 import { useTranslation } from "react-i18next";
-import { HeaderStyles } from "../../styles/Styles";
+
+const HeaderStyles = styled.header`
+  ${tw`bg-[#1976d2] h-20 flex flex-row justify-center items-center `}
+  & {
+    h1 {
+      ${tw`text-white text-5xl`}
+    }
+  }
+`;
 
 const Header = () => {
   const { t, i18n } = useTranslation();
   return (
     <HeaderStyles>
-      <header>
-        <h1>{t("My favorite cinema")}</h1>
-      </header>
+      <h1>{t("My favorite cinema")}</h1>
     </HeaderStyles>
   );
 };

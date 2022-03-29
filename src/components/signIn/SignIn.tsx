@@ -13,11 +13,6 @@ import { GetGenresList, GetMoviesList } from "../GetFunctions";
 import SingInInput from "./SingInInput";
 
 const SignIn: FC = () => {
-  const DEFAULT_VALUES = {
-    year: 2010,
-    rating: 5,
-    genres: ["Comedy", "Family"],
-  };
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -42,8 +37,6 @@ const SignIn: FC = () => {
   };
 
   const onSubmit = (value: ISignIn) => {
-    GetMoviesList(DEFAULT_VALUES);
-    GetGenresList();
     CheckUsersData();
     if (verification(value.login, value.password)) {
       navigate("/home");

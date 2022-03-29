@@ -1,31 +1,35 @@
-export interface ISingInInput{
+export interface ISingInInput {
   lableText: string;
   name: string;
-  input?:string
+  input?: string;
 }
 
-export interface ISignIn{
+export interface ISignIn {
   login: string;
   password: string;
   rememberMe?: boolean;
 }
 
-export interface IGetMoviesList{
+export interface IGetMoviesList {
   year?: number;
-  rating?: number; 
+  rating?: number;
   genres?: Array<string>;
 }
 
-export interface IGreeting{
-  name: string;
-}
-
-export interface IGenreItem{
+export interface IGenreItem {
   name: string;
   id: string;
+  isFavorite: boolean;
 }
 
-export interface GenreItemProps{
+export interface IGenreItemProps {
   genreItem: IGenreItem;
-  onClick: () => void;
+  handleChangeGenreItem: (genreItem: IGenreItem) => void;
+}
+
+export interface IMovieData {
+  id: string;
+  title: string;
+  overview: string;
+  posterPath: string;
 }
