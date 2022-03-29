@@ -8,7 +8,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const MainPageStyles = styled.main`
-  ${tw`bg-[#e2e8f0] w-full h-full pb-10 font-sans box-content `}
+  ${tw`bg-[#e2e8f0] w-full h-full pb-10 font-sans box-content`}
 `;
 
 const MainPage = () => {
