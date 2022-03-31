@@ -17,10 +17,7 @@ const SignIn: FC = () => {
 
   const verification = (login: string, password: string) => {
     const verifyData = JSON.parse(localStorage.getItem("usersData") || "{}");
-    if (
-      verifyData.hasOwnProperty(login) &&
-      password === verifyData[login].password
-    ) {
+    if (password === verifyData[login].password) {
       const userData = {
         login: login,
         password: verifyData[login].password,
