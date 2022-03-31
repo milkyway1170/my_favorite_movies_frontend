@@ -1,12 +1,7 @@
 import { FC } from "react";
 import { IGenreItem, IGetMoviesList, IMovieData } from "../types/types";
 
-const GetMoviesList = async (
-  page?: number,
-  year?: number,
-  rating?: number,
-  genres?: Array<string>
-): Promise<any> => {
+const GetMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
   let filterUrlPart = "";
   if (page) {
     filterUrlPart += "&page=" + page?.toString();
@@ -21,53 +16,66 @@ const GetMoviesList = async (
     filterUrlPart += "&with_genres=";
     genres.forEach((genre) => (filterUrlPart += genre + "%2C%20"));
   }
-  const response = await fetch(
+  fetch(
     (process.env.REACT_APP_GET_DISCOVER ?? "") +
       (process.env.REACT_APP_API_KEY ?? "") +
       "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false" +
       filterUrlPart +
       "&with_watch_monetization_types=flatrate"
-  );
-  const data = await response.json();
-  return data;
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch(() => {});
+  return null;
 };
 
-const GetGenresList = async (
+const GetGenresList = (
   setGenresList: React.Dispatch<React.SetStateAction<IGenreItem[]>>
-): Promise<any> => {
-  const response = await fetch(
+) => {
+  fetch(
     (process.env.REACT_APP_GET_GENRES ?? "") +
       (process.env.REACT_APP_API_KEY ?? "") +
       "&language=en-US"
-  );
-  const data = await response.json();
-  setGenresList(
-    data.genres.map(({ id, name }: { id: string; name: string }) => ({
-      id,
-      name,
-      isFavorite: getData("favoriteGenres").includes(name) ? true : false,
-    }))
-  );
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch(() => {})
+    .then((data) => {
+      setGenresList(
+        data.genres.map(({ id, name }: { id: string; name: string }) => ({
+          id,
+          name,
+          isFavorite: getData("favoriteGenres").includes(name) ? true : false,
+        }))
+      );
+    });
 };
 
-const GetMovieData = async (
+const GetMovieData = (
   movieId: number,
   setMovieData: React.Dispatch<React.SetStateAction<IMovieData>>
-): Promise<any> => {
-  const response = await fetch(
+): any => {
+  fetch(
     (process.env.REACT_APP_GET_MOVIE_DATA ?? "") +
       movieId.toString() +
       "?api_key=" +
       (process.env.REACT_APP_API_KEY ?? "") +
       "&language=en-US"
-  );
-  const data = await response.json();
-  setMovieData({
-    id: data.id,
-    title: data.title,
-    overview: data.overview,
-    posterPath: data.poster_path,
-  });
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch(() => {})
+    .then((data) => {
+      setMovieData({
+        id: data.id,
+        title: data.title,
+        overview: data.overview,
+        posterPath: data.poster_path,
+      });
+    });
 };
 
 const getPoster = (posterPath: string) => {
