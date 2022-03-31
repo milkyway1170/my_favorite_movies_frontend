@@ -1,9 +1,6 @@
 import { FC } from "react";
+import { IDeleteButton } from "../../../types/types";
 import Delete from "./media/cross.png";
-
-interface IDeleteButton {
-  handleChange: () => void;
-}
 
 export const DeleteButton: FC<IDeleteButton> = (props) => {
   return (

@@ -1,18 +1,12 @@
-import { LoadData } from "../GetFunctions";
+import { loadData } from "../GetFunctions";
 import GenresTagCloud from "./GenresTagCloud";
 import Greeting from "./Greeting";
 import Header from "./Header";
 import { MoviesBlock } from "./movies/MoviesBlock";
-
-import styled from "styled-components";
-import tw from "twin.macro";
-
-const MainPageStyles = styled.main`
-  ${tw`bg-[#e2e8f0] w-full h-full pb-10 font-sans box-content`}
-`;
+import { MainPageStyles } from "../../styles/Styles";
 
 const MainPage = () => {
-  LoadData();
+  loadData();
 
   return (
     <MainPageStyles>

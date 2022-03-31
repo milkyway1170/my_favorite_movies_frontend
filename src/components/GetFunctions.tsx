@@ -1,8 +1,11 @@
 import { FC } from "react";
-import { IGenreItem, IGetMoviesList } from "../types/types";
+import { IGenreItem, IGetMoviesList, IMovieData } from "../types/types";
 
-const GetMoviesList: FC<IGetMoviesList> = ({ year, rating, genres }) => {
+const GetMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
   let filterUrlPart = "";
+  if (page) {
+    filterUrlPart += "&page=" + page?.toString();
+  }
   if (year) {
     filterUrlPart += "&primary_release_year=" + year?.toString();
   }
@@ -23,74 +26,66 @@ const GetMoviesList: FC<IGetMoviesList> = ({ year, rating, genres }) => {
     .then((response) => {
       return response.json();
     })
-    .catch((data) => {
-      return data[""];
-    })
+    .catch(() => {})
     .then((data) => {
       return data;
     });
   return null;
 };
 
-function GetGenresList(): Promise<IGenreItem[]> {
-  return new Promise((resolve, reject) => {
-    fetch(
-      (process.env.REACT_APP_GET_GENRES ?? "") +
-        (process.env.REACT_APP_API_KEY ?? "") +
-        "&language=en-US"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .catch((data) => {
-        reject(data.genres[""]);
-      })
-      .then((data) => {
-        resolve(
-          data.genres.map(({ id, name }: { id: string; name: string }) => ({
-            id,
-            name,
-            isFavorite: GetData("favoriteGenres").includes(name) ? true : false,
-          }))
-        );
+const GetGenresList = (
+  setGenresList: React.Dispatch<React.SetStateAction<IGenreItem[]>>
+) => {
+  fetch(
+    (process.env.REACT_APP_GET_GENRES ?? "") +
+      (process.env.REACT_APP_API_KEY ?? "") +
+      "&language=en-US"
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch(() => {})
+    .then((data) => {
+      setGenresList(
+        data.genres.map(({ id, name }: { id: string; name: string }) => ({
+          id,
+          name,
+          isFavorite: getData("favoriteGenres").includes(name) ? true : false,
+        }))
+      );
+    });
+};
+
+const GetMovieData = (
+  movieId: number,
+  setMovieData: React.Dispatch<React.SetStateAction<IMovieData>>
+): any => {
+  fetch(
+    (process.env.REACT_APP_GET_MOVIE_DATA ?? "") +
+      movieId.toString() +
+      "?api_key=" +
+      (process.env.REACT_APP_API_KEY ?? "") +
+      "&language=en-US"
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .catch(() => {})
+    .then((data) => {
+      setMovieData({
+        id: data.id,
+        title: data.title,
+        overview: data.overview,
+        posterPath: data.poster_path,
       });
-  });
-}
+    });
+};
 
-interface IGetMovieData {
-  movieId: number;
-  id: string;
-  title: string;
-  overview: string;
-  poster_path: string;
-}
-
-function GetMovieData(movieId: number): Promise<IGetMovieData> {
-  return new Promise((resolve, reject) => {
-    fetch(
-      (process.env.REACT_APP_GET_MOVIE_DATA ?? "") +
-        movieId.toString() +
-        "?api_key=" +
-        (process.env.REACT_APP_API_KEY ?? "") +
-        "&language=en-US"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .catch((data) => {
-        reject(data[""]);
-      })
-      .then((data) => {
-        resolve(data);
-      });
-  });
-}
-
-const GetPoster = (posterPath: string) => {
+const getPoster = (posterPath: string) => {
   return (process.env.REACT_APP_GET_POSTER ?? "") + posterPath;
 };
 
-const LoadData = () => {
+const loadData = () => {
   const data = JSON.parse(localStorage.getItem("userData") || "{}");
   localStorage.setItem("favoriteGenres", JSON.stringify(data.favoriteGenres));
   localStorage.setItem("favoriteMovies", JSON.stringify(data.favoriteMovies));
@@ -98,7 +93,7 @@ const LoadData = () => {
   localStorage.setItem("password", JSON.stringify(data.password));
 };
 
-const GetData = (param: string) => {
+const getData = (param: string) => {
   const data = JSON.parse(localStorage.getItem(param) || "{}");
   return data;
 };
@@ -106,8 +101,8 @@ const GetData = (param: string) => {
 export {
   GetGenresList,
   GetMoviesList,
-  LoadData,
-  GetData,
+  loadData,
+  getData,
   GetMovieData,
-  GetPoster,
+  getPoster,
 };
