@@ -26,7 +26,9 @@ const GetMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
     .then((response) => {
       return response.json();
     })
-    .catch(() => {});
+    .catch((error) => {
+      console.log(error);
+    });
   return null;
 };
 
@@ -41,13 +43,15 @@ const GetGenresList = (
     .then((response) => {
       return response.json();
     })
-    .catch(() => {})
+    .catch((error) => {
+      console.log(error);
+    })
     .then((data) => {
       setGenresList(
         data.genres.map(({ id, name }: { id: string; name: string }) => ({
           id,
           name,
-          isFavorite: getData("favoriteGenres").includes(name) ? true : false,
+          isFavorite: getData("favoriteGenres").includes(name),
         }))
       );
     });
@@ -56,7 +60,7 @@ const GetGenresList = (
 const GetMovieData = (
   movieId: number,
   setMovieData: React.Dispatch<React.SetStateAction<IMovieData>>
-): any => {
+): void => {
   fetch(
     (process.env.REACT_APP_GET_MOVIE_DATA ?? "") +
       movieId.toString() +
@@ -67,7 +71,9 @@ const GetMovieData = (
     .then((response) => {
       return response.json();
     })
-    .catch(() => {})
+    .catch((error) => {
+      console.log(error);
+    })
     .then((data) => {
       setMovieData({
         id: data.id,
