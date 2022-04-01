@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 
 import { MovieItemBtns, MovieItemStyles } from "../../../styles/Styles";
 import { IMovieData, IMovieItem } from "../../../types/types";
-import { GetMovieData, getPoster } from "../../GetFunctions";
+import { GetMovieData, getPoster } from "../../../utils/getFunctions";
 import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 

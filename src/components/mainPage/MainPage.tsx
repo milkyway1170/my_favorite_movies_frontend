@@ -1,4 +1,4 @@
-import { loadData } from "../GetFunctions";
+import { loadData } from "../../utils/getFunctions";
 import GenresTagCloud from "./GenresTagCloud";
 import Greeting from "./Greeting";
 import Header from "./Header";

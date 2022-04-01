@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getData, GetGenresList } from "../GetFunctions";
+import { getData, GetGenresList } from "../../utils/getFunctions";
 import { IGenreItem } from "../../types/types";
 import GenreItem from "./GenreItem";
 import { GenreItemStyles, GenresTagCloudStyles } from "../../styles/Styles";
