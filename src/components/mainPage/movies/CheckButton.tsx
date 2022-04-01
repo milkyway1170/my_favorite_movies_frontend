@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { ISwitch } from "../../../types/types";
-import Check from "./media/checking-mark.png";
+import checkIcon from "./media/checking-mark.png";
 
 export const CheckButton: FC<ISwitch> = (props) => {
   const handleCheckButton = () => {
@@ -9,7 +9,7 @@ export const CheckButton: FC<ISwitch> = (props) => {
   };
   return (
     <button onClick={() => handleCheckButton()}>
-      <img src={Check} />
+      <img src={checkIcon} />
     </button>
   );
 };

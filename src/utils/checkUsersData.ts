@@ -1,4 +1,4 @@
-const CheckUsersData = () => {
+const сheckUsersData = () => {
   if (!localStorage.getItem("usersData")) {
     const usersData = {
       admin: {
@@ -16,4 +16,4 @@ const CheckUsersData = () => {
   }
 };
 
-export default CheckUsersData;
+export default сheckUsersData;

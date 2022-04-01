@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 
 import { MovieItemBtns, MovieItemStyles } from "../../../styles/Styles";
 import { IMovieData, IMovieItem } from "../../../types/types";
-import { GetMovieData, getPoster } from "../../../utils/getFunctions";
+import { getMovieData, getPoster } from "../../../utils/getFunctions";
 import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 
@@ -17,7 +17,7 @@ export const MovieItem: FC<IMovieItem> = (props): any => {
 
   useEffect(() => {
     if (props.movieId) {
-      GetMovieData(props.movieId, setMovieData);
+      getMovieData(props.movieId, setMovieData);
     }
   }, []);
 

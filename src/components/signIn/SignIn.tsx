@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import Submit from "./Submit";
 import { ISignIn } from "../../types/types";
 import FormStyles from "../../styles/Styles";
-import Logo from "./media/logo.png";
+import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
 
@@ -41,7 +41,7 @@ const SignIn: FC = () => {
   return (
     <FormStyles>
       <FailVerification isActive={verificationStatus} />
-      <img src={Logo} alt="logo"></img>
+      <img src={logo} alt="logo"></img>
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (

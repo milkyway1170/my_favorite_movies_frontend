@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { MoviesBlockStyles } from "../../../styles/Styles";
-import { GetMoviesList } from "../../../utils/getFunctions";
+import { getMoviesList } from "../../../utils/getFunctions";
 import AddNewFavoriteMovie from "./AddNewFavoriteMovie";
 import { ChangeView } from "./ChangeView";
 import { MoviesList } from "./MoviesList";

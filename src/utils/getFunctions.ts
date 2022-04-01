@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { IGenreItem, IGetMoviesList, IMovieData } from "../types/types";
 
-const GetMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
+const getMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
   let filterUrlPart = "";
   if (page) {
     filterUrlPart += "&page=" + page?.toString();
@@ -32,7 +32,7 @@ const GetMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
   return null;
 };
 
-const GetGenresList = (
+const getGenresList = (
   setGenresList: React.Dispatch<React.SetStateAction<IGenreItem[]>>
 ) => {
   fetch(
@@ -57,7 +57,7 @@ const GetGenresList = (
     });
 };
 
-const GetMovieData = (
+const getMovieData = (
   movieId: number,
   setMovieData: React.Dispatch<React.SetStateAction<IMovieData>>
 ): void => {
@@ -102,10 +102,10 @@ const getData = (param: string) => {
 };
 
 export {
-  GetGenresList,
-  GetMoviesList,
+  getGenresList,
+  getMoviesList,
   loadData,
   getData,
-  GetMovieData,
+  getMovieData,
   getPoster,
 };

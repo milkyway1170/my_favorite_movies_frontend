@@ -2,8 +2,8 @@ import { FC } from "react";
 
 import { ChangeViewStyles } from "../../../styles/Styles";
 import { ISwitch } from "../../../types/types";
-import ListView from "./media/list.png";
-import BlockView from "./media/menu.png";
+import listViewIcon from "./media/list.png";
+import blockViewIcon from "./media/menu.png";
 
 export const ChangeView: FC<ISwitch> = (props) => {
   const ChangeView = () => {
@@ -15,14 +15,14 @@ export const ChangeView: FC<ISwitch> = (props) => {
       <button onClick={() => ChangeView()}>
         <img
           style={props.status ? { border: "solid white" } : { border: "none" }}
-          src={ListView}
+          src={listViewIcon}
           alt="logo"
         ></img>
       </button>
       <button onClick={() => ChangeView()}>
         <img
           style={!props.status ? { border: "solid white" } : { border: "none" }}
-          src={BlockView}
+          src={blockViewIcon}
           alt="logo"
         ></img>
       </button>
