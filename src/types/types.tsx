@@ -14,12 +14,12 @@ export interface IGetMoviesList {
   year?: number;
   rating?: number;
   genres?: Array<string>;
+  setMoviesList: (moviesList: IMovieData[]) => void;
 }
 
 export interface IGenreItem {
   name: string;
   id: string;
-  isFavorite: boolean;
 }
 
 export interface IGenreItemProps {
@@ -28,18 +28,14 @@ export interface IGenreItemProps {
 }
 
 export interface IMovieData {
-  id: string;
-  title: string;
-  overview: string;
-  posterPath: string;
-}
-
-export interface IGetMovieData {
-  movieId: number;
-  id: string;
+  id: number;
   title: string;
   overview: string;
   poster_path: string;
+}
+
+export interface IGetMovieData extends IMovieData {
+  movieId: number;
 }
 
 export interface IFailVerification {
@@ -62,9 +58,27 @@ export interface IMovieItem {
   handleDeleteItem: (id: string) => void;
 }
 
-export interface IMovieData {
-  id: string;
-  title: string;
-  overview: string;
-  posterPath: string;
+export interface ISearchedMovieItem {
+  index: number;
+  listView: boolean;
+  movieData: IMovieData;
+}
+
+export interface ISearchedMoviesList {
+  moviesList: IMovieData[];
+  listView: boolean;
+}
+
+export interface IReleaseYear {
+  releaseYear: number;
+  handleChange: (releaseYear: number) => void;
+}
+
+export interface ISaveItButton {
+  movieId: number;
+}
+
+export interface IRating {
+  rating: number;
+  setRating: (rating: number) => void;
 }

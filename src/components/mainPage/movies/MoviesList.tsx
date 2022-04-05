@@ -1,10 +1,14 @@
 import { useState } from "react";
 
 import { MoviesListStyles } from "../../../styles/Styles";
+import { getData } from "../../../utils/getFunctions";
+
 import { MovieItem } from "./MovieItem";
 
 export const MoviesList = ({ listView }: { listView: boolean }) => {
-  const [moviesIdList, setMoviesIdList] = useState<number[]>([12, 13, 14, 15]);
+  const [moviesIdList, setMoviesIdList] = useState<number[]>(
+    getData("favoriteMovies")
+  );
 
   const handleDeleteItem = (id: string) => {
     const index = parseInt(id);

@@ -8,10 +8,10 @@ import { DeleteButton } from "./DeleteButton";
 
 export const MovieItem: FC<IMovieItem> = (props): any => {
   const [movieData, setMovieData] = useState<IMovieData>({
-    id: "",
+    id: 0,
     title: "",
     overview: "",
-    posterPath: "",
+    poster_path: "",
   });
   const [isCheck, setIsCheck] = useState<boolean>(false);
 
@@ -23,7 +23,7 @@ export const MovieItem: FC<IMovieItem> = (props): any => {
 
   const handleDeleteButton = () => {
     if (movieData.id) {
-      return props.handleDeleteItem(movieData.id);
+      return props.handleDeleteItem(movieData.id.toString());
     }
   };
 
@@ -31,7 +31,7 @@ export const MovieItem: FC<IMovieItem> = (props): any => {
   return (
     <MovieItemStyles listView={props.listView}>
       <h3>{movieData.title}</h3>
-      <img src={getPoster(movieData.posterPath)} alt="" />
+      <img src={getPoster(movieData.poster_path)} alt="" />
       <p>{movieData.overview}</p>
       <MovieItemBtns>
         <CheckButton

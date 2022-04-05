@@ -9,6 +9,7 @@ import FormStyles from "../../styles/Styles";
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
+import { loadData } from "../../utils/getFunctions";
 
 const SignIn: FC = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const SignIn: FC = () => {
 
   const onSubmit = (value: ISignIn): void => {
     if (verification(value.login, value.password)) {
+      loadData();
       navigate("/home");
     }
   };

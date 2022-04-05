@@ -1,20 +1,21 @@
 import { FC } from "react";
+
 import { IGenreItem, IGetMoviesList, IMovieData } from "../types/types";
 
-const getMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
+const getMoviesList: FC<IGetMoviesList> = (props) => {
   let filterUrlPart = "";
-  if (page) {
-    filterUrlPart += "&page=" + page?.toString();
+  if (props.page) {
+    filterUrlPart += "&page=" + props.page?.toString();
   }
-  if (year) {
-    filterUrlPart += "&primary_release_year=" + year?.toString();
+  if (props.year) {
+    filterUrlPart += "&primary_release_year=" + props.year?.toString();
   }
-  if (rating) {
-    filterUrlPart += "&vote_average.gte=" + rating?.toString();
+  if (props.rating) {
+    filterUrlPart += "&vote_average.gte=" + props.rating?.toString();
   }
-  if (genres) {
+  if (props.genres) {
     filterUrlPart += "&with_genres=";
-    genres.forEach((genre) => (filterUrlPart += genre + "%2C%20"));
+    props.genres.forEach((genre) => (filterUrlPart += genre + "%2C%20"));
   }
   fetch(
     (process.env.REACT_APP_GET_DISCOVER ?? "") +
@@ -28,6 +29,12 @@ const getMoviesList: FC<IGetMoviesList> = ({ page, year, rating, genres }) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .then((data) =>{
+      props.setMoviesList(
+      data.results.map((
+        { id, title, overview, poster_path}: { id: string; title: string; overview: string; poster_path:string }
+        ) => ({ id, title, overview, poster_path,})))
     });
   return null;
 };
@@ -40,7 +47,7 @@ const getGenresList = (
       (process.env.REACT_APP_API_KEY ?? "") +
       "&language=en-US"
   )
-    .then((response) => {
+    .then((response) => { 
       return response.json();
     })
     .catch((error) => {
@@ -50,8 +57,7 @@ const getGenresList = (
       setGenresList(
         data.genres.map(({ id, name }: { id: string; name: string }) => ({
           id,
-          name,
-          isFavorite: getData("favoriteGenres").includes(name),
+          name
         }))
       );
     });
@@ -79,7 +85,7 @@ const getMovieData = (
         id: data.id,
         title: data.title,
         overview: data.overview,
-        posterPath: data.poster_path,
+        poster_path: data.poster_path,
       });
     });
 };

@@ -11,7 +11,7 @@ const AddNewFavoriteMovie = () => {
     <BtnStyles>
       <button
         onClick={() => {
-          navigate("/");
+          navigate("/add");
         }}
       >
         {t("Add")}

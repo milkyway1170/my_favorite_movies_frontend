@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { ChangeViewStyles } from "../../../styles/Styles";
-import { ISwitch } from "../../../types/types";
+import { ChangeViewStyles } from "../styles/Styles";
+import { ISwitch } from "../types/types";
 import listViewIcon from "./media/list.png";
 import blockViewIcon from "./media/menu.png";
 

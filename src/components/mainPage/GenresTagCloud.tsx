@@ -3,29 +3,46 @@ import { useTranslation } from "react-i18next";
 
 import { getData, getGenresList } from "../../utils/getFunctions";
 import { IGenreItem } from "../../types/types";
-import GenreItem from "./GenreItem";
 import { GenreItemStyles, GenresTagCloudStyles } from "../../styles/Styles";
+import GenreItem from "../GenreItem";
 
 const GenresTagCloud = () => {
   const { t, i18n } = useTranslation();
   const [genresList, setGenresList] = useState<IGenreItem[]>([]);
+  const [favoriteGenresList, setFavoriteGenresList] = useState<string[]>(
+    getData("favoriteGenres")
+  );
 
   useEffect(() => {
     getGenresList(setGenresList);
   }, []);
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    let favoriteGenresList = getData("favoriteGenres");
-    favoriteGenresList.indexOf(genreItem.name) >= 0
-      ? favoriteGenresList.splice(favoriteGenresList.indexOf(genreItem.name), 1)
-      : favoriteGenresList.push(genreItem.name);
-    localStorage.setItem("favoriteGenres", JSON.stringify(favoriteGenresList));
-    genreItem.isFavorite = !genreItem.isFavorite;
-    setGenresList([...genresList]);
+    if (favoriteGenresList.indexOf(genreItem.name) >= 0) {
+      setFavoriteGenresList(
+        favoriteGenresList.filter(
+          (favoriteGenre: string) => favoriteGenre !== genreItem.name
+        )
+      );
+      localStorage.setItem(
+        "favoriteGenres",
+        JSON.stringify(
+          favoriteGenresList.filter(
+            (favoriteGenre: string) => favoriteGenre !== genreItem.name
+          )
+        )
+      );
+    } else {
+      setFavoriteGenresList([...favoriteGenresList, genreItem.name]);
+      localStorage.setItem(
+        "favoriteGenres",
+        JSON.stringify([...favoriteGenresList, genreItem.name])
+      );
+    }
   };
 
   const listItems = genresList.map((genreItem: IGenreItem) => (
-    <GenreItemStyles isFavorite={genreItem.isFavorite}>
+    <GenreItemStyles isFavorite={favoriteGenresList.includes(genreItem.name)}>
       <GenreItem
         handleChangeGenreItem={handleChangeGenreItem}
         genreItem={genreItem}

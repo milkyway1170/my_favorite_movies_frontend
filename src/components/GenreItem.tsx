@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { IGenreItemProps } from "../../types/types";
+
+import { IGenreItemProps } from "../types/types";
 
 const GenreItem: FC<IGenreItemProps> = (props) => {
   return (

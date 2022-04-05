@@ -128,19 +128,24 @@ const MoviesBlockStyles = styled.div`
     rounded-xl
     shadow-2xl
     `}
+  }
+`;
+
+const FirstStringStyles = styled.div`
+  ${tw`
+flex flex-row justify-between items-center
+space-x-4
+text-3xl font-semibold
+`}
   & {
     div {
-      ${tw`
-      flex flex-row justify-between items-center
-      space-x-4
-      text-3xl font-semibold
-      `}
+      ${tw`flex flex-row items-center space-x-4`}
     }
   }
 `;
 
 const ChangeViewStyles = styled.div`
-  ${tw`space-x-4`}
+  ${tw`space-x-4 flex flex-row justify-end`}
   & {
     img {
       ${tw`w-12 rounded-md p-1`}
@@ -175,6 +180,7 @@ const MovieItemStyles = styled.li<{ listView: boolean }>`
 `;
 
 const MovieItemBtns = styled.div`
+  ${tw`flex flex-row`}
   & {
     img {
       ${tw`w-12`}
@@ -182,7 +188,73 @@ const MovieItemBtns = styled.div`
   }
 `;
 
+const SaveItButtonStyles = styled.div<{ isSave: boolean }>`
+& {
+  button{
+    ${tw`
+      text-white
+      text-lg
+      px-5 py-2 ml-5
+      rounded-md
+      shadow-xl
+    `}
+    ${(props) =>
+      props.isSave ? "background-color: #1976d2" : "background-color: #35b8f2"}
+}
+`;
+
+const SearchSettingsStyles = styled.div`
+  ${tw`
+  bg-[#43a2f0]
+  mt-5 py-5 px-10 mx-20
+  rounded-xl
+  shadow-2xl`}
+  & {
+    h2 {
+      ${tw`text-3xl font-semibold`}
+    }
+  }
+`;
+
+const SearchedGenresTagCloudStyles = styled.div`
+  ${tw`bg-[#43a2f0]`}
+  & {
+    div {
+      ${tw`
+    flex flex-row flex-wrap
+    space-x-4
+    `}
+    }
+    h3 {
+      ${tw`text-2xl font-semibold mr-2`}
+    }
+  }
+`;
+
+const ReleaseYearStyles = styled.div`
+  ${tw`flex flex-row items-center mt-5`}
+  & {
+    h3 {
+      ${tw`text-2xl font-semibold mr-5`}
+    }
+  }
+`;
+
+const RatingStyles = styled(ReleaseYearStyles)`
+  & {
+    span {
+      ${tw`text-xl`}
+    }
+  }
+`;
+
 export {
+  FirstStringStyles,
+  RatingStyles,
+  ReleaseYearStyles,
+  SearchedGenresTagCloudStyles,
+  SearchSettingsStyles,
+  SaveItButtonStyles,
   FailVerificationStyles,
   SingInInputStyles,
   BtnStyles,

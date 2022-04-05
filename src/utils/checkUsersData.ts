@@ -4,11 +4,11 @@ const сheckUsersData = () => {
       admin: {
         password: "admin",
         favoriteGenres: ["Animation", "History"],
-        favoriteMovies: ["Spider-Man: No Way Home", "The Batman"],
+        favoriteMovies: [12, 13, 14],
       },
       "vladislav.bublik@kodep.ru": {
         password: "password",
-        favoriteGenres: ["Mystery", "War"],
+        favoriteGenres: [12, 13],
         favoriteMovies: [],
       },
     };
