@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 
 const Submit = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Button type="submit" variant="contained">

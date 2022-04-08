@@ -1,51 +1,43 @@
 import { useTranslation } from "react-i18next";
 
-import { IGenreItem } from "../../types/types";
+import { IGenreItem, ISearchedGenresTagCloud } from "types";
 import {
-  GenreItemStyles,
   SearchedGenresTagCloudStyles,
-} from "../../styles/Styles";
-import GenreItem from "../GenreItem";
+  SearchSettingsTextStyles,
+  TagsContainerStyles,
+} from "styles/styles";
+import { GenreItem } from "components/GenreItem";
+import { FC } from "react";
+import { checkAndChange } from "utils/getFunctions";
 
-const SearchedGenresTagCloud = (props: {
-  setGenresList: (genreItem: IGenreItem[]) => void;
-  genresList: IGenreItem[];
-  setFavoriteGenresList: (favoriteGenresList: string[]) => void;
-  favoriteGenresList: string[];
+export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
+  favoriteGenresIdList,
+  setFavoriteGenresIdList,
+  genresList,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    props.favoriteGenresList.indexOf(genreItem.name) >= 0
-      ? props.setFavoriteGenresList(
-          props.favoriteGenresList.filter(
-            (favoriteGenre: string) => favoriteGenre !== genreItem.name
-          )
-        )
-      : props.setFavoriteGenresList([
-          ...props.favoriteGenresList,
-          genreItem.name,
-        ]);
+    let resultList = checkAndChange({
+      checkedArray: favoriteGenresIdList,
+      checkedArrayItem: genreItem.id,
+    });
+    setFavoriteGenresIdList(resultList);
   };
 
-  const listItems = props.genresList.map((genreItem: IGenreItem) => (
-    <GenreItemStyles
-      isFavorite={props.favoriteGenresList.includes(genreItem.name)}
-    >
-      <GenreItem
-        handleChangeGenreItem={handleChangeGenreItem}
-        genreItem={genreItem}
-        key={genreItem.id}
-      />
-    </GenreItemStyles>
+  const listItems = genresList.map((genreItem: IGenreItem) => (
+    <GenreItem
+      favoriteGenresIdList={favoriteGenresIdList}
+      handleChangeGenreItem={handleChangeGenreItem}
+      genreItem={genreItem}
+      key={genreItem.id}
+    />
   ));
 
   return (
     <SearchedGenresTagCloudStyles>
-      <h3>{t("Genres:")}</h3>
-      <div>{listItems}</div>
+      <SearchSettingsTextStyles>{t("Genres:")}</SearchSettingsTextStyles>
+      <TagsContainerStyles>{listItems}</TagsContainerStyles>
     </SearchedGenresTagCloudStyles>
   );
 };
-
-export default SearchedGenresTagCloud;

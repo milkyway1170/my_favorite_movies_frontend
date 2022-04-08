@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getData, getGenresList } from "../../utils/getFunctions";
-import { IGenreItem } from "../../types/types";
-import { GenreItemStyles, GenresTagCloudStyles } from "../../styles/Styles";
-import GenreItem from "../GenreItem";
+import { checkAndChange, getData, getGenresList } from "utils/getFunctions";
+import { IGenreItem } from "types";
+import {
+  GenresTagCloudStyles,
+  TagsContainerStyles,
+  TitleTextStyles,
+} from "styles/styles";
+import { GenreItem } from "components/GenreItem";
 
-const GenresTagCloud = () => {
-  const { t, i18n } = useTranslation();
+export const GenresTagCloud = () => {
+  const { t } = useTranslation();
   const [genresList, setGenresList] = useState<IGenreItem[]>([]);
-  const [favoriteGenresList, setFavoriteGenresList] = useState<string[]>(
+  const [favoriteGenresIdList, setFavoriteGenresIdList] = useState<number[]>(
     getData("favoriteGenres")
   );
 
@@ -18,45 +22,27 @@ const GenresTagCloud = () => {
   }, []);
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    if (favoriteGenresList.indexOf(genreItem.name) >= 0) {
-      setFavoriteGenresList(
-        favoriteGenresList.filter(
-          (favoriteGenre: string) => favoriteGenre !== genreItem.name
-        )
-      );
-      localStorage.setItem(
-        "favoriteGenres",
-        JSON.stringify(
-          favoriteGenresList.filter(
-            (favoriteGenre: string) => favoriteGenre !== genreItem.name
-          )
-        )
-      );
-    } else {
-      setFavoriteGenresList([...favoriteGenresList, genreItem.name]);
-      localStorage.setItem(
-        "favoriteGenres",
-        JSON.stringify([...favoriteGenresList, genreItem.name])
-      );
-    }
+    let resultList = checkAndChange({
+      checkedArray: favoriteGenresIdList,
+      checkedArrayItem: genreItem.id,
+    });
+    setFavoriteGenresIdList(resultList);
+    localStorage.setItem("favoriteGenres", JSON.stringify(resultList));
   };
 
   const listItems = genresList.map((genreItem: IGenreItem) => (
-    <GenreItemStyles isFavorite={favoriteGenresList.includes(genreItem.name)}>
-      <GenreItem
-        handleChangeGenreItem={handleChangeGenreItem}
-        genreItem={genreItem}
-        key={genreItem.id}
-      />
-    </GenreItemStyles>
+    <GenreItem
+      favoriteGenresIdList={favoriteGenresIdList}
+      handleChangeGenreItem={handleChangeGenreItem}
+      genreItem={genreItem}
+      key={genreItem.id}
+    />
   ));
 
   return (
     <GenresTagCloudStyles>
-      <h2>{t("Select your favorite ganres:")}</h2>
-      <div>{listItems}</div>
+      <TitleTextStyles>{t("Select your favorite ganres:")}</TitleTextStyles>
+      <TagsContainerStyles>{listItems}</TagsContainerStyles>
     </GenresTagCloudStyles>
   );
 };
-
-export default GenresTagCloud;

@@ -4,16 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Submit from "./Submit";
-import { ISignIn } from "../../types/types";
-import FormStyles from "../../styles/Styles";
+import { ISignIn } from "types";
+import {
+  SignInDivStyles,
+  SignInFormStyles,
+  SignInImgStyles,
+  SignInStyles,
+} from "styles/styles";
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
-import { loadData } from "../../utils/getFunctions";
+import { loadData } from "utils/getFunctions";
 
-const SignIn: FC = () => {
+export const SignIn: FC = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [verificationStatus, setVerificationStatus] = useState<boolean>(true);
 
   const verification = (login: string, password: string) => {
@@ -41,23 +46,21 @@ const SignIn: FC = () => {
   };
 
   return (
-    <FormStyles>
+    <SignInStyles>
       <FailVerification isActive={verificationStatus} />
-      <img src={logo} alt="logo"></img>
+      <SignInImgStyles src={logo} alt="logo" />
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <SignInFormStyles onSubmit={handleSubmit}>
             <SingInInput name="login" lableText={t("Username or email")} />
             <SingInInput name="password" lableText={t("Password")} />
-            <div>
+            <SignInDivStyles>
               <Submit />
-            </div>
-          </form>
+            </SignInDivStyles>
+          </SignInFormStyles>
         )}
       />
-    </FormStyles>
+    </SignInStyles>
   );
 };
-
-export default SignIn;

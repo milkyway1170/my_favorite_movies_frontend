@@ -1,11 +1,12 @@
 import { FC } from "react";
-import { IDeleteButton } from "../../../types/types";
+import { MovieItemButtonImgStyles } from "styles/styles";
+import { IDeleteButton } from "types";
 import deleteIcon from "./media/cross.png";
 
-export const DeleteButton: FC<IDeleteButton> = (props) => {
+export const DeleteButton: FC<IDeleteButton> = ({ handleChange, listView }) => {
   return (
-    <button onClick={() => props.handleChange()}>
-      <img src={deleteIcon} />
+    <button onClick={() => handleChange()}>
+      <MovieItemButtonImgStyles listView={listView} src={deleteIcon} />
     </button>
   );
 };

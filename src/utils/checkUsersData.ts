@@ -3,12 +3,12 @@ const сheckUsersData = () => {
     const usersData = {
       admin: {
         password: "admin",
-        favoriteGenres: ["Animation", "History"],
+        favoriteGenres: [16, 35],
         favoriteMovies: [12, 13, 14],
       },
       "vladislav.bublik@kodep.ru": {
         password: "password",
-        favoriteGenres: [12, 13],
+        favoriteGenres: [],
         favoriteMovies: [],
       },
     };
@@ -16,4 +16,4 @@ const сheckUsersData = () => {
   }
 };
 
-export default сheckUsersData;
+export  { сheckUsersData };

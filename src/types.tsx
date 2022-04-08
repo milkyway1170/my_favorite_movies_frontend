@@ -13,25 +13,31 @@ export interface IGetMoviesList {
   page?: number;
   year?: number;
   rating?: number;
-  genres?: Array<string>;
+  genres?: string[];
   setMoviesList: (moviesList: IMovieData[]) => void;
 }
 
 export interface IGenreItem {
   name: string;
-  id: string;
+  id: number;
+}
+
+export interface IGetGenresNames {
+  favoriteGenresIdList: number[];
+  genresList: IGenreItem[];
 }
 
 export interface IGenreItemProps {
   genreItem: IGenreItem;
   handleChangeGenreItem: (genreItem: IGenreItem) => void;
+  favoriteGenresIdList: number[];
 }
 
 export interface IMovieData {
-  id: number;
+  id: number | null;
   title: string;
   overview: string;
-  poster_path: string;
+  posterPath?: string;
 }
 
 export interface IGetMovieData extends IMovieData {
@@ -43,12 +49,13 @@ export interface IFailVerification {
 }
 
 export interface ISwitch {
-  status: boolean;
-  handleChange: (status: boolean) => void;
+  listView: boolean;
+  handleChange: (listView: boolean) => void;
 }
 
 export interface IDeleteButton {
   handleChange: () => void;
+  listView: boolean;
 }
 
 export interface IMovieItem {
@@ -59,7 +66,6 @@ export interface IMovieItem {
 }
 
 export interface ISearchedMovieItem {
-  index: number;
   listView: boolean;
   movieData: IMovieData;
 }
@@ -75,10 +81,33 @@ export interface IReleaseYear {
 }
 
 export interface ISaveItButton {
-  movieId: number;
+  movieId: number | null;
 }
 
 export interface IRating {
   rating: number;
   setRating: (rating: number) => void;
+}
+
+export interface ISearchedGenresTagCloud {
+  genresList: IGenreItem[];
+  setFavoriteGenresIdList: (favoriteGenresIdList: number[]) => void;
+  favoriteGenresIdList: number[];
+}
+
+export interface ISearchSettings {
+  setMoviesList: (moviesList: IMovieData[]) => void;
+}
+
+export interface IMoviesList {
+  listView: boolean;
+}
+
+export interface IApiMovieData extends IMovieData {
+  poster_path: string;
+}
+
+export interface ICheckAndChange {
+  checkedArray: number[];
+  checkedArrayItem: number;
 }

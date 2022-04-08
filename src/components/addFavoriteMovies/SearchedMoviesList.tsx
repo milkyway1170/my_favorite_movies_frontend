@@ -1,22 +1,20 @@
 import { FC } from "react";
 
-import { MoviesListStyles } from "../../styles/Styles";
-import { IMovieData, ISearchedMoviesList } from "../../types/types";
+import { MoviesListStyles } from "styles/styles";
+import { IMovieData, ISearchedMoviesList } from "types";
 import { SearchedMovieItem } from "./SearchedMovieItem";
 
-export const SearchedMoviesList: FC<ISearchedMoviesList> = (props) => {
-  const listItems = props.moviesList.map(
-    (movieData: IMovieData, index: number) => (
-      <SearchedMovieItem
-        index={index + 1}
-        movieData={movieData}
-        listView={props.listView}
-        key={movieData.id}
-      />
-    )
-  );
+export const SearchedMoviesList: FC<ISearchedMoviesList> = ({
+  listView,
+  moviesList,
+}) => {
+  const listItems = moviesList.map((movieData: IMovieData) => (
+    <SearchedMovieItem
+      movieData={movieData}
+      listView={listView}
+      key={movieData.id}
+    />
+  ));
 
-  return (
-    <MoviesListStyles listView={props.listView}>{listItems}</MoviesListStyles>
-  );
+  return <MoviesListStyles listView={listView}>{listItems}</MoviesListStyles>;
 };

@@ -1,35 +1,31 @@
 import { FC } from "react";
-import Slider from "@mui/material/Slider";
 import { useTranslation } from "react-i18next";
+import Slider from "@mui/material/Slider";
 
-import { IRating } from "../../types/types";
-import { RatingStyles } from "../../styles/Styles";
+import { IRating } from "types";
+import { RatingStyles, SearchSettingsTextStyles } from "styles/styles";
+import {
+  RATING_SLIDER_MARKS,
+  RATING_SLIDER_STEP,
+  RATING_VALUE_MAX,
+  RATING_VALUE_MIN,
+} from "./const";
 
-export const Rating: FC<IRating> = (props) => {
-  const { t, i18n } = useTranslation();
+export const Rating: FC<IRating> = ({ rating, setRating }) => {
+  const { t } = useTranslation();
 
-  const marks = [
-    {
-      value: 0,
-      label: "0",
-    },
-    {
-      value: 10,
-      label: "10",
-    },
-  ];
   return (
     <RatingStyles>
-      <h3>{t("Rating:")}</h3>
+      <SearchSettingsTextStyles>{t("Rating:")}</SearchSettingsTextStyles>
       <Slider
-        key={`slider-${props.rating}`}
-        defaultValue={props.rating}
+        key={`slider-${rating}`}
+        defaultValue={rating}
         valueLabelDisplay="auto"
-        step={1}
-        min={0}
-        max={10}
-        marks={marks}
-        onChange={(e: any) => props.setRating(e.target.value)}
+        step={RATING_SLIDER_STEP}
+        min={RATING_VALUE_MIN}
+        max={RATING_VALUE_MAX}
+        marks={RATING_SLIDER_MARKS}
+        onChange={(event: Event, value: number) => setRating(value)}
       />
     </RatingStyles>
   );

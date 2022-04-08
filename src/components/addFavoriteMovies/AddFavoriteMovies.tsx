@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { MainPageStyles, MoviesBlockStyles } from "styles/styles";
+import { IMovieData } from "types";
 
-import { MainPageStyles, MoviesBlockStyles } from "../../styles/Styles";
-import { IMovieData } from "../../types/types";
-import { ChangeView } from "../ChangeView";
-import Header from "../Header";
+import { ChangeView } from "components/ChangeView";
+import { Header } from "components/Header";
 import { SearchedMoviesList } from "./SearchedMoviesList";
 import { SearchSettings } from "./SearchSettings";
 
@@ -17,8 +17,8 @@ export const AddFavoriteMovies = () => {
       <SearchSettings setMoviesList={setMoviesList} />
       <MoviesBlockStyles>
         <ChangeView
-          handleChange={(status: boolean) => setListView(status)}
-          status={listView}
+          handleChange={(listView: boolean) => setListView(listView)}
+          listView={listView}
         />
         <SearchedMoviesList moviesList={moviesList} listView={listView} />
       </MoviesBlockStyles>

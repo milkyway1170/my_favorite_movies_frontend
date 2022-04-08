@@ -1,39 +1,30 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SaveItButtonStyles } from "../../styles/Styles";
-import { ISaveItButton } from "../../types/types";
-import { getData } from "../../utils/getFunctions";
+import { SaveItButtonStyles } from "styles/styles";
+import { ISaveItButton } from "types";
+import { checkAndChange, getData } from "utils/getFunctions";
 
-export const SaveItButton: FC<ISaveItButton> = (props) => {
-  const { t, i18n } = useTranslation();
+export const SaveItButton: FC<ISaveItButton> = ({ movieId }) => {
+  const { t } = useTranslation();
   const [isSave, setIsSave] = useState<boolean>(
-    getData("favoriteMovies").includes(props.movieId)
+    getData("favoriteMovies").includes(movieId)
   );
 
   const handleSaveItButton = () => {
     setIsSave(!isSave);
-    let favoriteMoviesList = getData("favoriteMovies");
-    if (favoriteMoviesList.indexOf(props.movieId) >= 0) {
-      localStorage.setItem(
-        "favoriteMovies",
-        JSON.stringify(
-          favoriteMoviesList.filter(
-            (favoriteMovie: number) => favoriteMovie !== props.movieId
-          )
-        )
-      );
-    } else {
-      localStorage.setItem(
-        "favoriteMovies",
-        JSON.stringify([...favoriteMoviesList, props.movieId])
-      );
+    if (movieId) {
+      const resultList = checkAndChange({
+        checkedArray: getData("favoriteMovies"),
+        checkedArrayItem: movieId,
+      });
+      localStorage.setItem("favoriteMovies", JSON.stringify(resultList));
     }
   };
 
   return (
-    <SaveItButtonStyles isSave={isSave}>
-      <button onClick={() => handleSaveItButton()}>{t("Save it!")}</button>
+    <SaveItButtonStyles isSave={isSave} onClick={() => handleSaveItButton()}>
+      {t("Save it!")}
     </SaveItButtonStyles>
   );
 };

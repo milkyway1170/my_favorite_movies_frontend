@@ -18,9 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@styles": ["styles/"],
+      "@components": ["components/"],
+      "@config": ["config/"],
+      "@utils": ["utils/"]
+    }
   },
-  "include": [
-    "src"
-, "src/components/signIn"  ]
+  "include": ["src", "src/components/signIn"  ]
+  
 }

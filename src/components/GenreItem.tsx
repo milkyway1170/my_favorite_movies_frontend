@@ -1,13 +1,19 @@
 import { FC } from "react";
+import { GenreItemSButtonStyles } from "styles/styles";
 
-import { IGenreItemProps } from "../types/types";
+import { IGenreItemProps } from "types";
 
-const GenreItem: FC<IGenreItemProps> = (props) => {
+export const GenreItem: FC<IGenreItemProps> = ({
+  handleChangeGenreItem,
+  genreItem,
+  favoriteGenresIdList,
+}) => {
   return (
-    <button onClick={() => props.handleChangeGenreItem(props.genreItem)}>
-      {props.genreItem.name}
-    </button>
+    <GenreItemSButtonStyles
+      isFavorite={favoriteGenresIdList.includes(genreItem.id)}
+      onClick={() => handleChangeGenreItem(genreItem)}
+    >
+      {genreItem.name}
+    </GenreItemSButtonStyles>
   );
 };
-
-export default GenreItem;

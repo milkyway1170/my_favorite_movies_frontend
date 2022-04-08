@@ -1,21 +1,22 @@
-import { FC } from "react";
 
-import { IGenreItem, IGetMoviesList, IMovieData } from "../types/types";
 
-const getMoviesList: FC<IGetMoviesList> = (props) => {
+import { THE_OLDEST_RELEASE_YEAR } from "components/addFavoriteMovies/const";
+import { IApiMovieData, ICheckAndChange, IGenreItem, IGetGenresNames, IGetMoviesList, IMovieData } from "types";
+
+const getMoviesList = ({year, page, rating, genres, setMoviesList}:IGetMoviesList) => {
   let filterUrlPart = "";
-  if (props.page) {
-    filterUrlPart += "&page=" + props.page?.toString();
+  if (page) {
+    filterUrlPart += "&page=" + page.toString();
   }
-  if (props.year) {
-    filterUrlPart += "&primary_release_year=" + props.year?.toString();
+  if (year) {
+    filterUrlPart += "&primary_release_year=" + year.toString();
   }
-  if (props.rating) {
-    filterUrlPart += "&vote_average.gte=" + props.rating?.toString();
+  if (rating) {
+    filterUrlPart += "&vote_average.gte=" + rating.toString();
   }
-  if (props.genres) {
+  if (genres) {
     filterUrlPart += "&with_genres=";
-    props.genres.forEach((genre) => (filterUrlPart += genre + "%2C%20"));
+    genres.forEach((genre) => (filterUrlPart += genre + "%2C%20"));
   }
   fetch(
     (process.env.REACT_APP_GET_DISCOVER ?? "") +
@@ -31,13 +32,15 @@ const getMoviesList: FC<IGetMoviesList> = (props) => {
       console.log(error);
     })
     .then((data) =>{
-      props.setMoviesList(
-      data.results.map((
-        { id, title, overview, poster_path}: { id: string; title: string; overview: string; poster_path:string }
-        ) => ({ id, title, overview, poster_path,})))
-    });
-  return null;
-};
+      setMoviesList(
+      data.results.map((data:IApiMovieData) => (
+        { id: data.id,
+          title: data.title,
+          overview: data.overview,
+          posterPath: data.poster_path,})))
+        });
+        return null;
+      };
 
 const getGenresList = (
   setGenresList: React.Dispatch<React.SetStateAction<IGenreItem[]>>
@@ -55,10 +58,7 @@ const getGenresList = (
     })
     .then((data) => {
       setGenresList(
-        data.genres.map(({ id, name }: { id: string; name: string }) => ({
-          id,
-          name
-        }))
+        data.genres.map((genreItem:IGenreItem) => (genreItem))
       );
     });
 };
@@ -85,12 +85,12 @@ const getMovieData = (
         id: data.id,
         title: data.title,
         overview: data.overview,
-        poster_path: data.poster_path,
+        posterPath: data.poster_path,
       });
     });
 };
 
-const getPoster = (posterPath: string) => {
+const getPoster = (posterPath: string |undefined) => {
   return (process.env.REACT_APP_GET_POSTER ?? "") + posterPath;
 };
 
@@ -107,11 +107,43 @@ const getData = (param: string) => {
   return data;
 };
 
+const getReleaseYearsList = () => {
+  let releaseYearsList  = [];
+  for (
+    let year = THE_OLDEST_RELEASE_YEAR;
+    year <= new Date().getFullYear();
+    year++
+  ){
+    releaseYearsList.push(year);
+  }
+  return releaseYearsList;
+};
+
+const checkAndChange  = ({checkedArray, checkedArrayItem}:ICheckAndChange): number[] =>{
+  let resultList: number[] = [];
+  checkedArray.indexOf(checkedArrayItem) >= 0
+    ? (resultList = checkedArray.filter(
+        (arrayItem: number ) => arrayItem !== checkedArrayItem
+      ))
+    : (resultList = [...checkedArray, checkedArrayItem]);
+  return resultList;
+}
+
+const getGenresNames = ({favoriteGenresIdList, genresList}:IGetGenresNames) =>{
+    const result = genresList.filter((genreItem:IGenreItem) => {
+      return favoriteGenresIdList.indexOf(genreItem.id) !== -1;
+    });
+    return result.map((genreItem:IGenreItem)=> genreItem.name)
+}; 
+
 export {
+  getGenresNames,
+  checkAndChange,
   getGenresList,
   getMoviesList,
   loadData,
   getData,
   getMovieData,
   getPoster,
+  getReleaseYearsList,
 };

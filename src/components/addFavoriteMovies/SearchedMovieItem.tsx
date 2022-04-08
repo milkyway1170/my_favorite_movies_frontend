@@ -1,19 +1,29 @@
 import { FC } from "react";
 
-import { MovieItemStyles } from "../../styles/Styles";
-import { ISearchedMovieItem } from "../../types/types";
-import { getPoster } from "../../utils/getFunctions";
+import {
+  MovieItemPosterImgStyles,
+  MovieItemStyles,
+  MovieItemTextStyles,
+  MovieItemTitleTextStyles,
+} from "styles/styles";
+import { ISearchedMovieItem } from "types";
+import { getPoster } from "utils/getFunctions";
 import { SaveItButton } from "./SaveItButton";
 
-export const SearchedMovieItem: FC<ISearchedMovieItem> = (props): any => {
-  console.log(getPoster(props.movieData.poster_path));
-  if (!props.movieData) return;
+export const SearchedMovieItem: FC<ISearchedMovieItem> = ({
+  listView,
+  movieData,
+}) => {
   return (
-    <MovieItemStyles listView={props.listView}>
-      <h3>{props.movieData.title}</h3>
-      <img src={getPoster(props.movieData.poster_path)} alt="" />
-      <p>{props.movieData.overview}</p>
-      <SaveItButton movieId={props.movieData.id} />
+    <MovieItemStyles listView={listView}>
+      <MovieItemTitleTextStyles>{movieData.title}</MovieItemTitleTextStyles>
+      <MovieItemPosterImgStyles
+        listView={listView}
+        src={getPoster(movieData.posterPath)}
+        alt=""
+      />
+      <MovieItemTextStyles>{movieData.overview}</MovieItemTextStyles>
+      <SaveItButton movieId={movieData.id} />
     </MovieItemStyles>
   );
 };

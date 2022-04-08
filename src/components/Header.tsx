@@ -1,14 +1,12 @@
 import { useTranslation } from "react-i18next";
 
-import { HeaderStyles } from "../styles/Styles";
+import { HeaderStyles, HeaderTextStyles } from "styles/styles";
 
-const Header = () => {
-  const { t, i18n } = useTranslation();
+export const Header = () => {
+  const { t } = useTranslation();
   return (
     <HeaderStyles>
-      <h1>{t("My favorite cinema")}</h1>
+      <HeaderTextStyles>{t("My favorite cinema")}</HeaderTextStyles>
     </HeaderStyles>
   );
 };
-
-export default Header;

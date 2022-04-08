@@ -1,47 +1,46 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ReleaseYear } from "./ReleaseYear";
 import {
   getData,
+  getGenresNames,
   getGenresList,
   getMoviesList,
 } from "../../utils/getFunctions";
-import { IGenreItem, IMovieData } from "../../types/types";
-import { SearchSettingsStyles } from "../../styles/Styles";
-import SearchedGenresTagCloud from "./SearchedGenresTagCloud";
+import { IGenreItem, ISearchSettings } from "types";
+import { SearchSettingsStyles, TitleTextStyles } from "styles/styles";
+import { SearchedGenresTagCloud } from "./SearchedGenresTagCloud";
 import { Rating } from "./Rating";
+import { DEFAULT_RATING, DEFAULT_RELEASE_YEAR } from "./const";
 
-export const SearchSettings = (props: {
-  setMoviesList: (moviesList: IMovieData[]) => void;
-}) => {
-  const { t, i18n } = useTranslation();
-  const [releaseYear, setRelaeseYear] = useState<number>(2010);
-  const [rating, setRating] = useState<number>(5);
+export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
+  const { t } = useTranslation();
+  const [releaseYear, setRelaeseYear] = useState<number>(DEFAULT_RELEASE_YEAR);
+  const [rating, setRating] = useState<number>(DEFAULT_RATING);
   const [genresList, setGenresList] = useState<IGenreItem[]>([]);
-  const [favoriteGenresList, setFavoriteGenresList] = useState<string[]>(
+  const [favoriteGenresIdList, setFavoriteGenresIdList] = useState<number[]>(
     getData("favoriteGenres")
   );
 
   useEffect(() => {
     getGenresList(setGenresList);
     getMoviesList({
-      rating: rating,
+      rating,
       year: releaseYear,
       page: 1,
-      genres: favoriteGenresList,
-      setMoviesList: props.setMoviesList,
+      genres: getGenresNames({ favoriteGenresIdList, genresList }),
+      setMoviesList,
     });
-  }, [rating, releaseYear, favoriteGenresList]);
+  }, [rating, releaseYear, favoriteGenresIdList]);
 
   return (
     <SearchSettingsStyles>
-      <h2>{t("Choose your favorite films:")}</h2>
+      <TitleTextStyles>{t("Choose your favorite films:")}</TitleTextStyles>
       <SearchedGenresTagCloud
         genresList={genresList}
-        setGenresList={setGenresList}
-        favoriteGenresList={favoriteGenresList}
-        setFavoriteGenresList={setFavoriteGenresList}
+        favoriteGenresIdList={favoriteGenresIdList}
+        setFavoriteGenresIdList={setFavoriteGenresIdList}
       />
       <Rating setRating={setRating} rating={rating} />
       <ReleaseYear

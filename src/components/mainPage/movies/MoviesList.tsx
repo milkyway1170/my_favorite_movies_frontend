@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
-import { MoviesListStyles } from "../../../styles/Styles";
-import { getData } from "../../../utils/getFunctions";
-
+import { MoviesListStyles } from "styles/styles";
+import { IMoviesList } from "types";
+import { getData } from "utils/getFunctions";
 import { MovieItem } from "./MovieItem";
 
-export const MoviesList = ({ listView }: { listView: boolean }) => {
+export const MoviesList: FC<IMoviesList> = ({ listView }) => {
   const [moviesIdList, setMoviesIdList] = useState<number[]>(
     getData("favoriteMovies")
   );
