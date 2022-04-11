@@ -1,12 +1,11 @@
 const aliases = (prefix = `src`) => ({
-  '@components': `${prefix}/components`,
+  '@addFavoriteMovies': `${prefix}/components/addFavoriteMovies`,
+  '@signIn': `${prefix}/components/signIn`,
+  '@mainPage': `${prefix}/components/mainPage`,
   '@config': `${prefix}/config`,
   '@styles': `${prefix}/styles/styles`,
   '@utils': `${prefix}/utils`,
   '@types': `${prefix}/types`,
-  '@AddFavoriteMovies': `${prefix}/components/addFavoriteMovies/AddFavoriteMovies`,
-  '@SignIn': `${prefix}/components/signIn/SignIn`,
-  '@MainPage': `${prefix}/components/mainPage/MainPage`,
   '@signInStyles': `${prefix}/components/signIn/signInStyles`,
 });
 

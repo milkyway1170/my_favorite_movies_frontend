@@ -22,16 +22,15 @@
     "baseUrl": "./src",
     "paths": {
       "@styles": ["styles/styles"],
-      "@components": ["components/"],
       "@config": ["config/"],
       "@utils": ["utils/"],
       "@types": ["types"],
-      "@AddFavoriteMovies" :["components/addFavoriteMovies/AddFavoriteMovies"],
-      "@SignIn" :["components/signIn/SignIn"],
-      "@MainPage": ["components/mainPage/MainPage"],
       "@signInStyles": ["components/signIn/signInStyles"],
+      "@addFavoriteMovies/*": ["components/addFavoriteMovies/*"],
+      "@signIn/*": ["components/signIn/*"],
+      "@mainPage/*": ["components/mainPage/*"],
     }
   },
-  "include": ["src", "src/components/signIn"  ]
+  "include": ["src", "components/addFavoriteMovies/"  ]
   
 }
