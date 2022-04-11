@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { MainPageStyles, MoviesBlockStyles } from "styles/styles";
-import { IMovieData } from "types";
 
 import { ChangeView } from "components/ChangeView";
 import { Header } from "components/Header";
 import { SearchedMoviesList } from "./SearchedMoviesList";
 import { SearchSettings } from "./SearchSettings";
+import { MainPageStyles, MoviesBlockStyles } from "@styles";
+import { IMovieData } from "@types";
 
 export const AddFavoriteMovies = () => {
   const [moviesList, setMoviesList] = useState<IMovieData[]>([]);

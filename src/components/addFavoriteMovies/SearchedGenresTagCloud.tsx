@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
 
-import { IGenreItem, ISearchedGenresTagCloud } from "types";
-import {
-  SearchedGenresTagCloudStyles,
-  SearchSettingsTextStyles,
-  TagsContainerStyles,
-} from "styles/styles";
+import { IGenreItem, ISearchedGenresTagCloud } from "@types";
+import { TagsContainerStyles } from "@styles";
 import { GenreItem } from "components/GenreItem";
 import { FC } from "react";
-import { checkAndChange } from "utils/getFunctions";
+import { deleteOrInsertInArray } from "utils/getFunctions";
+import {
+  SearchedGenresTagCloudStyles,
+  SearchSettingsText,
+} from "./addFavoriteMoviesStyles";
 
 export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
   favoriteGenresIdList,
@@ -18,7 +18,7 @@ export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
   const { t } = useTranslation();
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    let resultList = checkAndChange({
+    let resultList = deleteOrInsertInArray({
       checkedArray: favoriteGenresIdList,
       checkedArrayItem: genreItem.id,
     });
@@ -36,7 +36,7 @@ export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
 
   return (
     <SearchedGenresTagCloudStyles>
-      <SearchSettingsTextStyles>{t("Genres:")}</SearchSettingsTextStyles>
+      <SearchSettingsText>{t("Genres:")}</SearchSettingsText>
       <TagsContainerStyles>{listItems}</TagsContainerStyles>
     </SearchedGenresTagCloudStyles>
   );

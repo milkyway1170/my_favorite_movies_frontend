@@ -3,9 +3,12 @@ import { useTranslation } from "react-i18next";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-import { IReleaseYear } from "types";
-import { ReleaseYearStyles, SearchSettingsTextStyles } from "styles/styles";
-import { getReleaseYearsList } from "utils/getFunctions";
+import { IReleaseYear } from "@types";
+import {
+  ReleaseYearStyles,
+  SearchSettingsText,
+} from "./addFavoriteMoviesStyles";
+import { releaseYearsList } from "./addFavoriteMoviesFunctions";
 
 export const ReleaseYear: FC<IReleaseYear> = ({
   releaseYear,
@@ -13,13 +16,13 @@ export const ReleaseYear: FC<IReleaseYear> = ({
 }) => {
   const { t } = useTranslation();
 
-  const yearsList = getReleaseYearsList().map((year: number) => (
+  const yearsList = releaseYearsList.map((year: number) => (
     <MenuItem value={year}>{year}</MenuItem>
   ));
 
   return (
     <ReleaseYearStyles>
-      <SearchSettingsTextStyles>{t("Release year:")}</SearchSettingsTextStyles>
+      <SearchSettingsText>{t("Release year:")}</SearchSettingsText>
       <Select
         value={releaseYear}
         onChange={(e) => handleChange(Number(e.target.value))}

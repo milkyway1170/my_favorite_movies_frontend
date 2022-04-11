@@ -2,8 +2,8 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import Slider from "@mui/material/Slider";
 
-import { IRating } from "types";
-import { RatingStyles, SearchSettingsTextStyles } from "styles/styles";
+import { IRating } from "@types";
+import { RatingStyles, SearchSettingsText } from "./addFavoriteMoviesStyles";
 import {
   RATING_SLIDER_MARKS,
   RATING_SLIDER_STEP,
@@ -16,7 +16,7 @@ export const Rating: FC<IRating> = ({ rating, setRating }) => {
 
   return (
     <RatingStyles>
-      <SearchSettingsTextStyles>{t("Rating:")}</SearchSettingsTextStyles>
+      <SearchSettingsText>{t("Rating:")}</SearchSettingsText>
       <Slider
         key={`slider-${rating}`}
         defaultValue={rating}

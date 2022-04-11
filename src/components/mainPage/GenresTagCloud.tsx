@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { checkAndChange, getData, getGenresList } from "utils/getFunctions";
-import { IGenreItem } from "types";
+import {
+  deleteOrInsertInArray,
+  getData,
+  getGenresList,
+} from "utils/getFunctions";
+import { IGenreItem } from "@types";
 import {
   GenresTagCloudStyles,
   TagsContainerStyles,
   TitleTextStyles,
-} from "styles/styles";
+} from "@styles";
 import { GenreItem } from "components/GenreItem";
 
 export const GenresTagCloud = () => {
@@ -22,7 +26,7 @@ export const GenresTagCloud = () => {
   }, []);
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    let resultList = checkAndChange({
+    let resultList = deleteOrInsertInArray({
       checkedArray: favoriteGenresIdList,
       checkedArrayItem: genreItem.id,
     });

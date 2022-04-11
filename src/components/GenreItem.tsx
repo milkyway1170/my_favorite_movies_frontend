@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { GenreItemSButtonStyles } from "styles/styles";
+import { GenreItemSButtonStyles } from "@styles";
 
-import { IGenreItemProps } from "types";
+import { IGenreItemProps } from "@types";
 
 export const GenreItem: FC<IGenreItemProps> = ({
   handleChangeGenreItem,

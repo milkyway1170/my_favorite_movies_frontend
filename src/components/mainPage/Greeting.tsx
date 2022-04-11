@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 
-import { GreetingStyles, GreetingTextStyles } from "styles/styles";
 import { getData } from "utils/getFunctions";
 import { Logout } from "./Logout";
+import { GreetingStyles, GreetingTextStyles } from "./mainPageStyles";
 
 export const Greeting = () => {
   const { t } = useTranslation();

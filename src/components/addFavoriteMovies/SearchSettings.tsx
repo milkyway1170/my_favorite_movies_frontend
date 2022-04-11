@@ -2,17 +2,14 @@ import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ReleaseYear } from "./ReleaseYear";
-import {
-  getData,
-  getGenresNames,
-  getGenresList,
-  getMoviesList,
-} from "../../utils/getFunctions";
-import { IGenreItem, ISearchSettings } from "types";
-import { SearchSettingsStyles, TitleTextStyles } from "styles/styles";
+import { IGenreItem, ISearchSettings } from "@types";
 import { SearchedGenresTagCloud } from "./SearchedGenresTagCloud";
 import { Rating } from "./Rating";
 import { DEFAULT_RATING, DEFAULT_RELEASE_YEAR } from "./const";
+import { getGenresNames, getMoviesList } from "./addFavoriteMoviesFunctions";
+import { SearchSettingsStyles } from "./addFavoriteMoviesStyles";
+import { TitleTextStyles } from "@styles";
+import { getData, getGenresList } from "utils/getFunctions";
 
 export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
   const { t } = useTranslation();

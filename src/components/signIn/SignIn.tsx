@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Submit from "./Submit";
-import { ISignIn } from "types";
+import { ISignIn } from "@types";
 import {
   SignInDivStyles,
   SignInFormStyles,
   SignInImgStyles,
   SignInStyles,
-} from "styles/styles";
+} from "./signInStyles";
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
-import { loadData } from "utils/getFunctions";
+import { loadData } from "./signInFunctions";
 
 export const SignIn: FC = () => {
   const navigate = useNavigate();

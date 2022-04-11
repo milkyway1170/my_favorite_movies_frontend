@@ -107,7 +107,7 @@ export interface IApiMovieData extends IMovieData {
   poster_path: string;
 }
 
-export interface ICheckAndChange {
+export interface IDeleteOrInsertInArray {
   checkedArray: number[];
   checkedArrayItem: number;
 }

@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { SaveItButtonStyles } from "styles/styles";
-import { ISaveItButton } from "types";
-import { checkAndChange, getData } from "utils/getFunctions";
+import { ISaveItButton } from "@types";
+import { deleteOrInsertInArray, getData } from "utils/getFunctions";
+import { SaveItButtonStyles } from "./addFavoriteMoviesStyles";
 
 export const SaveItButton: FC<ISaveItButton> = ({ movieId }) => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ export const SaveItButton: FC<ISaveItButton> = ({ movieId }) => {
   const handleSaveItButton = () => {
     setIsSave(!isSave);
     if (movieId) {
-      const resultList = checkAndChange({
+      const resultList = deleteOrInsertInArray({
         checkedArray: getData("favoriteMovies"),
         checkedArrayItem: movieId,
       });

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
-import { MoviesListStyles } from "styles/styles";
-import { IMoviesList } from "types";
+import { MoviesListStyles } from "@styles";
+import { IMoviesList } from "@types";
 import { getData } from "utils/getFunctions";
 import { MovieItem } from "./MovieItem";
 

@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { MoviesListStyles } from "styles/styles";
-import { IMovieData, ISearchedMoviesList } from "types";
+import { MoviesListStyles } from "@styles";
+import { IMovieData, ISearchedMoviesList } from "@types";
 import { SearchedMovieItem } from "./SearchedMovieItem";
 
 export const SearchedMoviesList: FC<ISearchedMoviesList> = ({

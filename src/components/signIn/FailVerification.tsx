@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { FailVerificationStyles } from "styles/styles";
-import { IFailVerification } from "types";
+import { FailVerificationStyles } from "./signInStyles";
+import { IFailVerification } from "@types";
 
 export const FailVerification: FC<IFailVerification> = (props) => {
   const { t } = useTranslation();

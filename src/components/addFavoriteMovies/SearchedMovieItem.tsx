@@ -5,25 +5,25 @@ import {
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
-} from "styles/styles";
-import { ISearchedMovieItem } from "types";
+} from "@styles";
+import { ISearchedMovieItem } from "@types";
 import { getPoster } from "utils/getFunctions";
 import { SaveItButton } from "./SaveItButton";
 
 export const SearchedMovieItem: FC<ISearchedMovieItem> = ({
   listView,
-  movieData,
+  movieData: { id, title, overview, posterPath },
 }) => {
   return (
     <MovieItemStyles listView={listView}>
-      <MovieItemTitleTextStyles>{movieData.title}</MovieItemTitleTextStyles>
+      <MovieItemTitleTextStyles>{title}</MovieItemTitleTextStyles>
       <MovieItemPosterImgStyles
         listView={listView}
-        src={getPoster(movieData.posterPath)}
+        src={getPoster(posterPath)}
         alt=""
       />
-      <MovieItemTextStyles>{movieData.overview}</MovieItemTextStyles>
-      <SaveItButton movieId={movieData.id} />
+      <MovieItemTextStyles>{overview}</MovieItemTextStyles>
+      <SaveItButton movieId={id} />
     </MovieItemStyles>
   );
 };

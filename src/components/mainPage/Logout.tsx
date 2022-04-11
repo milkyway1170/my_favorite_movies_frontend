@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { LogoutButtonStyles } from "styles/styles";
+import { LogoutButtonStyles } from "./mainPageStyles";
 
 export const Logout = () => {
   const { t } = useTranslation();

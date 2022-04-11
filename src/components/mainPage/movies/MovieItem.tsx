@@ -6,9 +6,10 @@ import {
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
-} from "styles/styles";
-import { IMovieData, IMovieItem } from "types";
-import { getMovieData, getPoster } from "utils/getFunctions";
+} from "@styles";
+import { IMovieData, IMovieItem } from "@types";
+import { getPoster } from "utils/getFunctions";
+import { getMovieData } from "../movieItemFunctions";
 import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 

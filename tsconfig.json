@@ -21,10 +21,15 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@styles": ["styles/"],
+      "@styles": ["styles/styles"],
       "@components": ["components/"],
       "@config": ["config/"],
-      "@utils": ["utils/"]
+      "@utils": ["utils/"],
+      "@types": ["types"],
+      "@AddFavoriteMovies" :["components/addFavoriteMovies/AddFavoriteMovies"],
+      "@SignIn" :["components/signIn/SignIn"],
+      "@MainPage": ["components/mainPage/MainPage"],
+      "@signInStyles": ["components/signIn/signInStyles"],
     }
   },
   "include": ["src", "src/components/signIn"  ]
