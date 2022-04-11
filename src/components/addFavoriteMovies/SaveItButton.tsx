@@ -12,8 +12,8 @@ export const SaveItButton: FC<ISaveItButton> = ({ movieId }) => {
   );
 
   const handleSaveItButton = () => {
-    setIsSave(!isSave);
     if (movieId) {
+      setIsSave(!isSave);
       const resultList = deleteOrInsertInArray({
         checkedArray: getData("favoriteMovies"),
         checkedArrayItem: movieId,
