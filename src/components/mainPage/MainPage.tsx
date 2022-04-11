@@ -1,13 +1,10 @@
-import { loadData } from "../../utils/getFunctions";
-import GenresTagCloud from "./GenresTagCloud";
-import Greeting from "./Greeting";
-import Header from "./Header";
+import { GenresTagCloud } from "./GenresTagCloud";
+import { Greeting } from "./Greeting";
 import { MoviesBlock } from "./movies/MoviesBlock";
-import { MainPageStyles } from "../../styles/Styles";
+import { MainPageStyles } from "@styles";
+import { Header } from "components/Header";
 
-const MainPage = () => {
-  loadData();
-
+export const MainPage = () => {
   return (
     <MainPageStyles>
       <Header />
@@ -17,5 +14,3 @@ const MainPage = () => {
     </MainPageStyles>
   );
 };
-
-export default MainPage;

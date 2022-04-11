@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { BtnStyles } from "../../../styles/Styles";
+import { BtnStyles } from "@styles";
 
 const AddNewFavoriteMovie = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
-    <BtnStyles>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        {t("Add")}
-      </button>
+    <BtnStyles
+      onClick={() => {
+        navigate("/add");
+      }}
+    >
+      {t("Add")}
     </BtnStyles>
   );
 };

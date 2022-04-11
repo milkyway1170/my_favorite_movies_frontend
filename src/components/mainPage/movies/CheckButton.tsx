@@ -1,15 +1,16 @@
 import { FC } from "react";
+import { MovieItemButtonImgStyles } from "@styles";
 
-import { ISwitch } from "../../../types/types";
+import { ISwitch } from "@types";
 import checkIcon from "./media/checking-mark.png";
 
-export const CheckButton: FC<ISwitch> = (props) => {
+export const CheckButton: FC<ISwitch> = ({ handleChange, listView }) => {
   const handleCheckButton = () => {
-    return props.handleChange(!props.status);
+    return handleChange(!listView);
   };
   return (
     <button onClick={() => handleCheckButton()}>
-      <img src={checkIcon} />
+      <MovieItemButtonImgStyles listView={listView} src={checkIcon} />
     </button>
   );
 };

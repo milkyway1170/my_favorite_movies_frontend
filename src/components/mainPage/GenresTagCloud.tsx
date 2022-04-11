@@ -1,45 +1,52 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getData, getGenresList } from "../../utils/getFunctions";
-import { IGenreItem } from "../../types/types";
-import GenreItem from "./GenreItem";
-import { GenreItemStyles, GenresTagCloudStyles } from "../../styles/Styles";
+import {
+  deleteOrInsertInArray,
+  getData,
+  getGenresList,
+} from "utils/getFunctions";
+import { IGenreItem } from "@types";
+import {
+  GenresTagCloudStyles,
+  TagsContainerStyles,
+  TitleTextStyles,
+} from "@styles";
+import { GenreItem } from "components/GenreItem";
 
-const GenresTagCloud = () => {
-  const { t, i18n } = useTranslation();
+export const GenresTagCloud = () => {
+  const { t } = useTranslation();
   const [genresList, setGenresList] = useState<IGenreItem[]>([]);
+  const [favoriteGenresIdList, setFavoriteGenresIdList] = useState<number[]>(
+    getData("favoriteGenres")
+  );
 
   useEffect(() => {
     getGenresList(setGenresList);
   }, []);
 
   const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    let favoriteGenresList = getData("favoriteGenres");
-    favoriteGenresList.indexOf(genreItem.name) >= 0
-      ? favoriteGenresList.splice(favoriteGenresList.indexOf(genreItem.name), 1)
-      : favoriteGenresList.push(genreItem.name);
-    localStorage.setItem("favoriteGenres", JSON.stringify(favoriteGenresList));
-    genreItem.isFavorite = !genreItem.isFavorite;
-    setGenresList([...genresList]);
+    let resultList = deleteOrInsertInArray({
+      checkedArray: favoriteGenresIdList,
+      checkedArrayItem: genreItem.id,
+    });
+    setFavoriteGenresIdList(resultList);
+    localStorage.setItem("favoriteGenres", JSON.stringify(resultList));
   };
 
   const listItems = genresList.map((genreItem: IGenreItem) => (
-    <GenreItemStyles isFavorite={genreItem.isFavorite}>
-      <GenreItem
-        handleChangeGenreItem={handleChangeGenreItem}
-        genreItem={genreItem}
-        key={genreItem.id}
-      />
-    </GenreItemStyles>
+    <GenreItem
+      favoriteGenresIdList={favoriteGenresIdList}
+      handleChangeGenreItem={handleChangeGenreItem}
+      genreItem={genreItem}
+      key={genreItem.id}
+    />
   ));
 
   return (
     <GenresTagCloudStyles>
-      <h2>{t("Select your favorite ganres:")}</h2>
-      <div>{listItems}</div>
+      <TitleTextStyles>{t("Select your favorite ganres:")}</TitleTextStyles>
+      <TagsContainerStyles>{listItems}</TagsContainerStyles>
     </GenresTagCloudStyles>
   );
 };
-
-export default GenresTagCloud;

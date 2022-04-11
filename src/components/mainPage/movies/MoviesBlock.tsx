@@ -1,35 +1,31 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { MoviesBlockStyles } from "../../../styles/Styles";
-import { getMoviesList } from "../../../utils/getFunctions";
-import AddNewFavoriteMovie from "./AddNewFavoriteMovie";
-import { ChangeView } from "./ChangeView";
+import { MoviesBlockStyles, TitleTextStyles } from "@styles";
+import { ChangeView } from "components/ChangeView";
+import BtnAddNewFavoriteMovie from "./BtnAddNewFavoriteMovie";
 import { MoviesList } from "./MoviesList";
+import {
+  MoviesBlockButtonContainerStyles,
+  MoviesBlockContainerStyles,
+} from "../mainPageStyles";
 
 export const MoviesBlock = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [listView, setListView] = useState<boolean>(true);
-
-  const DEFAULT_VALUES = {
-    page: 2,
-    year: 2010,
-    rating: 5,
-    genres: ["Comedy", "Family"],
-  };
 
   return (
     <MoviesBlockStyles>
-      <div>
-        <h2>{t("Your favorite movies:")}</h2>
-        <div>
-          <AddNewFavoriteMovie />
+      <MoviesBlockContainerStyles>
+        <TitleTextStyles>{t("Your favorite movies:")}</TitleTextStyles>
+        <MoviesBlockButtonContainerStyles>
+          <BtnAddNewFavoriteMovie />
           <ChangeView
-            handleChange={(status: boolean) => setListView(status)}
-            status={listView}
+            handleChange={(listView: boolean) => setListView(listView)}
+            listView={listView}
           />
-        </div>
-      </div>
+        </MoviesBlockButtonContainerStyles>
+      </MoviesBlockContainerStyles>
       <MoviesList listView={listView} />
     </MoviesBlockStyles>
   );

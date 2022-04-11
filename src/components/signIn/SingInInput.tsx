@@ -1,21 +1,19 @@
 import { FC } from "react";
 import { Field } from "react-final-form";
 
-import { SingInInputStyles } from "../../styles/Styles";
-import { ISingInInput } from "../../types/types";
+import { ISingInInput } from "@types";
+import { SingInInputContainerStyles, SingInInputStyles } from "./signInStyles";
 
 const SingInInput: FC<ISingInInput> = ({ name, lableText }) => {
   return (
-    <SingInInputStyles>
-      <Field name={name}>
-        {({ input }) => (
-          <div>
-            <label>{lableText}</label>
-            <input {...input} type="text" placeholder="" />
-          </div>
-        )}
-      </Field>
-    </SingInInputStyles>
+    <Field name={name}>
+      {({ input }) => (
+        <SingInInputContainerStyles>
+          <label>{lableText}</label>
+          <SingInInputStyles {...input} type="text" placeholder="" />
+        </SingInInputContainerStyles>
+      )}
+    </Field>
   );
 };
 

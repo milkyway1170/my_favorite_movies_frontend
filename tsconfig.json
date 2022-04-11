@@ -18,9 +18,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@styles": ["styles/styles"],
+      "@config": ["config/"],
+      "@utils": ["utils/"],
+      "@types": ["types"],
+      "@signInStyles": ["components/signIn/signInStyles"],
+      "@addFavoriteMovies/*": ["components/addFavoriteMovies/*"],
+      "@signIn/*": ["components/signIn/*"],
+      "@mainPage/*": ["components/mainPage/*"],
+    }
   },
-  "include": [
-    "src"
-, "src/components/signIn"  ]
+  "include": ["src", "components/addFavoriteMovies/"  ]
+  
 }

@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
-import { GreetingStyles } from "../../styles/Styles";
 
-import { getData } from "../../utils/getFunctions";
-import Logout from "./Logout";
+import { getData } from "utils/getFunctions";
+import { Logout } from "./Logout";
+import { GreetingStyles, GreetingTextStyles } from "./mainPageStyles";
 
-const Greeting = () => {
-  const { t, i18n } = useTranslation();
+export const Greeting = () => {
+  const { t } = useTranslation();
 
   return (
     <GreetingStyles>
-      <h2>
+      <GreetingTextStyles>
         {t("Hello, ")}
         {getData("login")}
-      </h2>
+      </GreetingTextStyles>
       <Logout />
     </GreetingStyles>
   );
 };
-
-export default Greeting;

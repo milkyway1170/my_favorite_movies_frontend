@@ -1,30 +1,30 @@
 import { FC } from "react";
 
-import { ChangeViewStyles } from "../../../styles/Styles";
-import { ISwitch } from "../../../types/types";
+import { ChangeViewImgStyles, ChangeViewStyles } from "@styles";
+import { ISwitch } from "@types";
 import listViewIcon from "./media/list.png";
 import blockViewIcon from "./media/menu.png";
 
-export const ChangeView: FC<ISwitch> = (props) => {
+export const ChangeView: FC<ISwitch> = ({ listView, handleChange }) => {
   const ChangeView = () => {
-    return props.handleChange(!props.status);
+    return handleChange(!listView);
   };
 
   return (
     <ChangeViewStyles>
       <button onClick={() => ChangeView()}>
-        <img
-          style={props.status ? { border: "solid white" } : { border: "none" }}
+        <ChangeViewImgStyles
+          listView={listView}
           src={listViewIcon}
           alt="logo"
-        ></img>
+        />
       </button>
       <button onClick={() => ChangeView()}>
-        <img
-          style={!props.status ? { border: "solid white" } : { border: "none" }}
+        <ChangeViewImgStyles
+          listView={!listView}
           src={blockViewIcon}
           alt="logo"
-        ></img>
+        />
       </button>
     </ChangeViewStyles>
   );

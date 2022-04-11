@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { LogoutStyles } from "../../styles/Styles";
+import { LogoutButtonStyles } from "./mainPageStyles";
 
-const Logout = () => {
-  const { t, i18n } = useTranslation();
+export const Logout = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const deleteSession = () => {
@@ -13,10 +13,8 @@ const Logout = () => {
   };
 
   return (
-    <LogoutStyles>
-      <button onClick={() => deleteSession()}>{t("logout")}</button>
-    </LogoutStyles>
+    <LogoutButtonStyles onClick={() => deleteSession()}>
+      {t("logout")}
+    </LogoutButtonStyles>
   );
 };
-
-export default Logout;
