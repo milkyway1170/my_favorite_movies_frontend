@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const EXCHANGE_RATES = gql`
+export const AllUsers = gql`
   query {
     users {
       id
