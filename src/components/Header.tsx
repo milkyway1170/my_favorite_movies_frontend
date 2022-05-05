@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { HeaderStyles, HeaderTextStyles } from "@styles";
+import { HeaderStyles, HeaderTextStyles } from "styles/styles";
 
 export const Header = () => {
   const { t } = useTranslation();

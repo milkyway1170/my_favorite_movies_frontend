@@ -1,9 +1,9 @@
 import { FC } from "react";
 
-import { ChangeViewImgStyles, ChangeViewStyles } from "@styles";
 import { ISwitch } from "@types";
 import listViewIcon from "./media/list.png";
 import blockViewIcon from "./media/menu.png";
+import { ChangeViewImgStyles, ChangeViewStyles } from "styles/styles";
 
 export const ChangeView: FC<ISwitch> = ({ listView, handleChange }) => {
   const ChangeView = () => {

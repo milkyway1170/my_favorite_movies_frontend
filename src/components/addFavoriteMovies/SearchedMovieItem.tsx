@@ -5,7 +5,7 @@ import {
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
-} from "@styles";
+} from "styles/styles";
 import { ISearchedMovieItem } from "@types";
 import { getPoster } from "utils/getFunctions";
 import { SaveItButton } from "./SaveItButton";

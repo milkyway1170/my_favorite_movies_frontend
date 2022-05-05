@@ -14,34 +14,29 @@ import {
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
-import { loadData } from "./signInFunctions";
+import { useMutation } from "@apollo/client";
+import { SIGN_IN_MUTATION } from "utils/gqlFunctions";
 
 export const SignIn: FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [verificationStatus, setVerificationStatus] = useState<boolean>(true);
-
-  const verification = (login: string, password: string) => {
-    const verifyData = JSON.parse(localStorage.getItem("usersData") || "{}");
-    if (password === verifyData[login].password) {
-      const userData = {
-        login: login,
-        password: verifyData[login].password,
-        favoriteGenres: verifyData[login].favoriteGenres,
-        favoriteMovies: verifyData[login].favoriteMovies,
-      };
-      localStorage.setItem("userData", JSON.stringify(userData));
-      return true;
-    } else {
-      setVerificationStatus(false);
-      return false;
-    }
-  };
+  const [verification, { error }] = useMutation(SIGN_IN_MUTATION, {
+    onCompleted: (data) => {
+      if (data) {
+        localStorage.setItem("token", data.signIn.token);
+        navigate("/home");
+        setVerificationStatus(true);
+      }
+    },
+  });
 
   const onSubmit = (value: ISignIn): void => {
-    if (verification(value.login, value.password)) {
-      loadData();
-      navigate("/home");
+    verification({
+      variables: { login: value.login, password: value.password },
+    });
+    if (error) {
+      setVerificationStatus(false);
     }
   };
 

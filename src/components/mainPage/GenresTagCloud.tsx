@@ -11,7 +11,7 @@ import {
   GenresTagCloudStyles,
   TagsContainerStyles,
   TitleTextStyles,
-} from "@styles";
+} from "styles/styles";
 import { GenreItem } from "components/GenreItem";
 
 export const GenresTagCloud = () => {

@@ -3,11 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import App from "./App";
 import "./assets/styles.css";
-
-const client = new ApolloClient({
-  uri: process.env.REACT_APP_GQL_TOKEN,
-  cache: new InMemoryCache(),
-});
+import client from "utils/client";
 
 ReactDOM.render(
   <ApolloProvider client={client}>

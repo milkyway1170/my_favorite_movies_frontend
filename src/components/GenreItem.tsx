@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { GenreItemSButtonStyles } from "@styles";
+import { GenreItemSButtonStyles } from "styles/styles";
 
 import { IGenreItemProps } from "@types";
 

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { IGenreItem, ISearchedGenresTagCloud } from "@types";
-import { TagsContainerStyles } from "@styles";
+import { TagsContainerStyles } from "styles/styles";
 import { GenreItem } from "components/GenreItem";
 import { FC } from "react";
 import { deleteOrInsertInArray } from "utils/getFunctions";
