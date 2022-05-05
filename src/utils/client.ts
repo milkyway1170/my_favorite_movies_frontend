@@ -1,10 +1,6 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-// export const graphqlEndpoint = process.env.REACT_APP_GQL_TOKEN
-//   ? new URL("graphql", process.env.REACT_APP_GQL_TOKEN).href
-//   : "http://localhost:3000/graphql";
-
 const getLink = () => {
   const link = createHttpLink({
     uri: "http://localhost:3001/graphql",

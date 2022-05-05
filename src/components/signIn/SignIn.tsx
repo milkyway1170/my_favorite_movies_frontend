@@ -24,7 +24,6 @@ export const SignIn: FC = () => {
   const [verification, { error }] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: (data) => {
       if (data) {
-        console.log("true");
         localStorage.setItem("token", data.signIn.token);
         navigate("/home");
         setVerificationStatus(true);
