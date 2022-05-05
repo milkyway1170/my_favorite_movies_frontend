@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { MovieItemButtonImgStyles } from "@styles";
+import { MovieItemButtonImgStyles } from "styles/styles";
 
 import { ISwitch } from "@types";
 import checkIcon from "./media/checking-mark.png";

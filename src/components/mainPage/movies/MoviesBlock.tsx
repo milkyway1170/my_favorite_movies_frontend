@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { MoviesBlockStyles, TitleTextStyles } from "@styles";
+import { MoviesBlockStyles, TitleTextStyles } from "styles/styles";
 import { ChangeView } from "components/ChangeView";
 import BtnAddNewFavoriteMovie from "./BtnAddNewFavoriteMovie";
 import { MoviesList } from "./MoviesList";

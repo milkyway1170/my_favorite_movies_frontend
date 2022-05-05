@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { TitleTextStyles } from "styles/styles";
+import styled from "styled-components";
+
 import tw from "twin.macro";
 
 export const GreetingStyles = styled.div`

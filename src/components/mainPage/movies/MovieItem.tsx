@@ -6,7 +6,7 @@ import {
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
-} from "@styles";
+} from "styles/styles";
 import { IMovieData, IMovieItem } from "@types";
 import { getPoster } from "utils/getFunctions";
 import { getMovieData } from "../movieItemFunctions";

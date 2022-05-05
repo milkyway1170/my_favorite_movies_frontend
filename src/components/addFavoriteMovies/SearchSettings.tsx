@@ -8,7 +8,7 @@ import { Rating } from "./Rating";
 import { DEFAULT_RATING, DEFAULT_RELEASE_YEAR } from "./const";
 import { getGenresNames, getMoviesList } from "./addFavoriteMoviesFunctions";
 import { SearchSettingsStyles } from "./addFavoriteMoviesStyles";
-import { TitleTextStyles } from "@styles";
+import { TitleTextStyles } from "styles/styles";
 import { getData, getGenresList } from "utils/getFunctions";
 
 export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {

@@ -9,6 +9,7 @@ export const Logout = () => {
 
   const deleteSession = () => {
     localStorage.removeItem("userData");
+    localStorage.removeItem("token");
     navigate("/");
   };
 
