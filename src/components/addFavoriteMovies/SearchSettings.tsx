@@ -8,13 +8,17 @@ import { SearchedGenresTagCloud } from "./SearchedGenresTagCloud";
 import { Rating } from "./Rating";
 import { DEFAULT_RATING, DEFAULT_RELEASE_YEAR } from "./const";
 import { getGenresNames } from "./addFavoriteMoviesFunctions";
-import { SearchSettingsStyles } from "./addFavoriteMoviesStyles";
+import {
+  SearchSettingsButtonContainerStyles,
+  SearchSettingsStyles,
+} from "./addFavoriteMoviesStyles";
 import { TitleTextStyles } from "styles/styles";
 import {
   GET_FAVORITE_GENRES_LIST,
   GET_GENRES_LIST,
   GET_SEARCHING_MOVIES_LIST,
 } from "utils/gqlFunctions";
+import BtnBackToHomePage from "./btnBackToHomePage";
 
 export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
   const { t } = useTranslation();
@@ -117,10 +121,13 @@ export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
         setFavoriteGenresIdList={setFavoriteGenresIdList}
       />
       <Rating setRating={setRating} rating={rating} />
-      <ReleaseYear
-        handleChange={(releaseYear) => setRelaeseYear(releaseYear)}
-        releaseYear={releaseYear}
-      />
+      <SearchSettingsButtonContainerStyles>
+        <ReleaseYear
+          handleChange={(releaseYear) => setRelaeseYear(releaseYear)}
+          releaseYear={releaseYear}
+        />
+        <BtnBackToHomePage />
+      </SearchSettingsButtonContainerStyles>
     </SearchSettingsStyles>
   );
 };
