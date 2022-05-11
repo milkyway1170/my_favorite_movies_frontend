@@ -14,7 +14,7 @@ import {
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SIGN_IN_MUTATION } from "utils/gqlFunctions";
 
 export const SignIn: FC = () => {

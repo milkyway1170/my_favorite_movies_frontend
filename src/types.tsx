@@ -37,7 +37,7 @@ export interface IMovieData {
   id: number | null;
   title: string;
   overview: string;
-  posterPath?: string;
+  posterPath: string;
 }
 
 export interface IGetMovieData extends IMovieData {
