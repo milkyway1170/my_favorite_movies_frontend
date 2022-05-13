@@ -1,3 +1,6 @@
+import { ApolloQueryResult } from "@apollo/client";
+import { ApolloError } from "@apollo/client/errors";
+
 export interface ISingInInput {
   lableText: string;
   name: string;
@@ -29,12 +32,19 @@ export interface IGetGenresNames {
 
 export interface IGenreItemProps {
   genreItem: IGenreItem;
-  handleChangeGenreItem: (genreItem: IGenreItem) => void;
-  favoriteGenresIdList: number[];
+  handleChangeGenreItem: (genreId: number, isFavorite: boolean) => void;
+  isFavorite: boolean;
 }
 
 export interface IMovieData {
   id: number | null;
+  title: string;
+  overview: string;
+  posterPath: string;
+}
+
+export interface ISearchedMovieData {
+  id: number;
   title: string;
   overview: string;
   posterPath: string;
@@ -67,11 +77,11 @@ export interface IMovieItem {
 
 export interface ISearchedMovieItem {
   listView: boolean;
-  movieData: IMovieData;
+  movieData: ISearchedMovieData;
 }
 
 export interface ISearchedMoviesList {
-  moviesList: IMovieData[];
+  moviesList: ISearchedMovieData[];
   listView: boolean;
 }
 
@@ -81,7 +91,9 @@ export interface IReleaseYear {
 }
 
 export interface ISaveItButton {
-  movieId: number | null;
+  movieId: number;
+  isSave: boolean;
+  handleChangeMovieItem: (movieId: number, isSave: boolean) => void;
 }
 
 export interface IRating {
@@ -90,13 +102,12 @@ export interface IRating {
 }
 
 export interface ISearchedGenresTagCloud {
-  genresList: IGenreItem[];
   setFavoriteGenresIdList: (favoriteGenresIdList: number[]) => void;
   favoriteGenresIdList: number[];
 }
 
 export interface ISearchSettings {
-  setMoviesList: (moviesList: IMovieData[]) => void;
+  setMoviesList: (moviesList: ISearchedMovieData[]) => void;
 }
 
 export interface IMoviesList {
@@ -110,4 +121,8 @@ export interface IApiMovieData extends IMovieData {
 export interface IDeleteOrInsertInArray {
   checkedArray: number[];
   checkedArrayItem: number;
+}
+
+export interface IErrorList {
+  errorList: (ApolloError | undefined)[];
 }

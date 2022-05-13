@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Submit from "./Submit";
-import { ISignIn } from "@types";
+import { ISignIn } from "types";
 import {
   SignInDivStyles,
   SignInFormStyles,
@@ -14,7 +14,7 @@ import {
 import logo from "./media/logo.png";
 import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { SIGN_IN_MUTATION } from "utils/gqlFunctions";
 
 export const SignIn: FC = () => {

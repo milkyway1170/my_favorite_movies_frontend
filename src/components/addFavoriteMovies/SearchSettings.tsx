@@ -3,36 +3,30 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@apollo/client";
 
 import { ReleaseYear } from "./ReleaseYear";
-import { IApiMovieData, IGenreItem, IMovieData, ISearchSettings } from "@types";
+import { ISearchSettings } from "types";
 import { SearchedGenresTagCloud } from "./SearchedGenresTagCloud";
 import { Rating } from "./Rating";
 import { DEFAULT_RATING, DEFAULT_RELEASE_YEAR } from "./const";
-import { getGenresNames } from "./addFavoriteMoviesFunctions";
 import {
   SearchSettingsButtonContainerStyles,
   SearchSettingsStyles,
 } from "./addFavoriteMoviesStyles";
-import { TitleTextStyles } from "styles/styles";
+import { LoadigStyles, TitleTextStyles } from "styles/styles";
 import {
   GET_FAVORITE_GENRES_LIST,
-  GET_GENRES_LIST,
   GET_SEARCHING_MOVIES_LIST,
 } from "utils/gqlFunctions";
 import BtnBackToHomePage from "./btnBackToHomePage";
+import { ErrorView } from "components/ErrorView";
 
 export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
   const { t } = useTranslation();
   const [releaseYear, setRelaeseYear] = useState<number>(DEFAULT_RELEASE_YEAR);
   const [rating, setRating] = useState<number>(DEFAULT_RATING);
-  const [genresList, setGenresList] = useState<IGenreItem[]>([]);
   const [favoriteGenresIdList, setFavoriteGenresIdList] = useState<number[]>(
     []
   );
-  const {
-    loading: loadingGenres,
-    error: errorGenres,
-    data: dataGenres,
-  } = useQuery(GET_GENRES_LIST);
+
   const {
     loading: loadingFavorireGenres,
     error: errorFavorireGenres,
@@ -48,31 +42,38 @@ export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
       page: 1,
       rating,
       year: releaseYear,
-      genres: getGenresNames({ favoriteGenresIdList, genresList }),
+      genres: favoriteGenresIdList,
     },
   });
 
   useEffect(() => {
-    if (dataGenres) {
-      setGenresList(
-        dataGenres.getGenres.map((genreItem: IGenreItem) => genreItem)
-      );
-    }
     if (dataFavorireGenres) {
-      setFavoriteGenresIdList(
-        dataFavorireGenres.favoriteGenresList.map(
-          (favoriteGenreItem: { genreId: number }) => favoriteGenreItem.genreId
-        )
-      );
+      if (localStorage.getItem("favoriteGenres")) {
+        setFavoriteGenresIdList(
+          JSON.parse(localStorage.getItem("favoriteGenres") || "{}")
+        );
+      } else {
+        setFavoriteGenresIdList(
+          dataFavorireGenres.favoriteGenresList.map(
+            (favoriteGenreItem: { genreId: number }) =>
+              favoriteGenreItem.genreId
+          )
+        );
+      }
     }
     if (dataSearchingMoviesList) {
       setMoviesList(
         dataSearchingMoviesList.getSearchingMoviesList.map(
-          (data: IApiMovieData) => ({
+          (data: {
+            id: number;
+            title: string;
+            overview: string;
+            posterPath: string;
+          }) => ({
             id: data.id,
             title: data.title,
             overview: data.overview,
-            posterPath: data.poster_path,
+            posterPath: data.posterPath,
           })
         )
       );
@@ -81,42 +82,21 @@ export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
       page: 1,
       rating,
       year: releaseYear,
-      genres: getGenresNames({ favoriteGenresIdList, genresList }),
+      genres: favoriteGenresIdList,
     });
-  }, [
-    dataGenres,
-    dataSearchingMoviesList,
-    rating,
-    releaseYear,
-    favoriteGenresIdList,
-  ]);
+  }, [dataSearchingMoviesList, dataFavorireGenres, releaseYear, rating]);
 
-  if (loadingGenres) return <div> {t("Loading...")}</div>;
-  if (errorGenres)
+  if (loadingSearchingMoviesList || loadingFavorireGenres)
+    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (errorSearchingMoviesList || errorFavorireGenres)
     return (
-      <div>
-        {t("Error!")} {errorGenres.message}
-      </div>
+      <ErrorView errorList={[errorSearchingMoviesList, errorFavorireGenres]} />
     );
-  if (loadingSearchingMoviesList) return <div> {t("Loading...")}</div>;
-  if (errorSearchingMoviesList)
-    return (
-      <div>
-        {t("Error!")} {errorSearchingMoviesList.message}
-      </div>
-    );
-  if (loadingFavorireGenres) return <div> {t("Loading...")}</div>;
-  if (errorFavorireGenres)
-    return (
-      <div>
-        {t("Error!")} {errorFavorireGenres.message}
-      </div>
-    );
+
   return (
     <SearchSettingsStyles>
       <TitleTextStyles>{t("Choose your favorite films:")}</TitleTextStyles>
       <SearchedGenresTagCloud
-        genresList={genresList}
         favoriteGenresIdList={favoriteGenresIdList}
         setFavoriteGenresIdList={setFavoriteGenresIdList}
       />

@@ -1,4 +1,4 @@
-import { IDeleteOrInsertInArray } from "@types";
+import { IDeleteOrInsertInArray } from "types";
 
 export const getPoster = (posterPath: string | undefined) => {
   return (process.env.REACT_APP_GET_POSTER ?? "") + posterPath;

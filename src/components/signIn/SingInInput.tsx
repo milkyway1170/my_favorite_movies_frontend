@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Field } from "react-final-form";
 
-import { ISingInInput } from "@types";
+import { ISingInInput } from "types";
 import { SingInInputContainerStyles, SingInInputStyles } from "./signInStyles";
 
 const SingInInput: FC<ISingInInput> = ({ name, lableText }) => {

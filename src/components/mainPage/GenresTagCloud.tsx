@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery } from "@apollo/client";
 
-import { IGenreItem } from "@types";
+import { IGenreItem } from "types";
 import {
   GenresTagCloudStyles,
+  LoadigStyles,
   TagsContainerStyles,
   TitleTextStyles,
 } from "styles/styles";
 import { GenreItem } from "components/GenreItem";
 import {
-  ADD_NEW_FAVORITE_GENRE,
   GET_FAVORITE_GENRES_LIST,
   GET_GENRES_LIST,
-  REMOVE_FAVORITE_GENRE,
+  DELETE_OR_INSERT_GENRE,
 } from "utils/gqlFunctions";
+import { ErrorView } from "components/ErrorView";
 
 export const GenresTagCloud = () => {
   const { t } = useTranslation();
 
-  const [addGenreItem] = useMutation(ADD_NEW_FAVORITE_GENRE);
-  const [removeGenreItem] = useMutation(REMOVE_FAVORITE_GENRE);
+  const [deleteOrInsertGenreItem] = useMutation(DELETE_OR_INSERT_GENRE, {
+    refetchQueries: [{ query: GET_FAVORITE_GENRES_LIST }],
+  });
   const {
     loading: loadingGenres,
     error: errorGenres,
@@ -32,68 +33,35 @@ export const GenresTagCloud = () => {
     data: dataFavorireGenres,
   } = useQuery(GET_FAVORITE_GENRES_LIST);
 
-  const [genresList, setGenresList] = useState<IGenreItem[]>([]);
-  const [favoriteGenresIdList, setFavoriteGenresIdList] = useState<number[]>(
-    []
-  );
-
-  useEffect(() => {
-    if (dataFavorireGenres) {
-      setFavoriteGenresIdList(
-        dataFavorireGenres.favoriteGenresList.map(
-          (favoriteGenreItem: { genreId: number }) => favoriteGenreItem.genreId
-        )
-      );
-    }
-    if (dataGenres) {
-      setGenresList(
-        dataGenres.getGenres.map((genreItem: IGenreItem) => genreItem)
-      );
-    }
-  }, [dataGenres]);
-
-  const handleChangeGenreItem = (genreItem: IGenreItem) => {
-    let resultList: number[] = [];
-    if (favoriteGenresIdList.indexOf(genreItem.id) >= 0) {
-      resultList = favoriteGenresIdList.filter(
-        (arrayItem: number) => arrayItem !== genreItem.id
-      );
-      removeGenreItem({
-        variables: { genreId: genreItem.id },
-      });
-    } else {
-      resultList = [...favoriteGenresIdList, genreItem.id];
-      addGenreItem({
-        variables: { newFavoriteGenre: genreItem.id },
-      });
-    }
-    setFavoriteGenresIdList(resultList);
-    localStorage.setItem("favoriteGenres", JSON.stringify(resultList));
+  const handleChangeGenreItem = async (
+    genreId: number,
+    isFavorite: boolean
+  ) => {
+    deleteOrInsertGenreItem({
+      variables: { genreId, isFavorite },
+    });
   };
 
-  const listItems = genresList.map((genreItem: IGenreItem) => (
-    <GenreItem
-      favoriteGenresIdList={favoriteGenresIdList}
-      handleChangeGenreItem={handleChangeGenreItem}
-      genreItem={genreItem}
-      key={genreItem.id}
-    />
-  ));
+  let listItems = [];
+  if (dataGenres && dataFavorireGenres) {
+    const favoriteGenresIdList = dataFavorireGenres.favoriteGenresList.map(
+      (favoriteGenreItem: { genreId: number }) => favoriteGenreItem.genreId
+    );
+    listItems = dataGenres.getGenres.map((genreItem: IGenreItem) => (
+      <GenreItem
+        isFavorite={favoriteGenresIdList.includes(genreItem.id)}
+        handleChangeGenreItem={handleChangeGenreItem}
+        genreItem={genreItem}
+        key={genreItem.id}
+      />
+    ));
+  }
 
-  if (loadingGenres) return <div> {t("Loading...")}</div>;
-  if (loadingFavorireGenres) return <div> {t("Loading...")}</div>;
-  if (errorGenres)
-    return (
-      <div>
-        {t("Error!")} {errorGenres.message}
-      </div>
-    );
-  if (errorFavorireGenres)
-    return (
-      <div>
-        {t("Error!")} {errorFavorireGenres.message}
-      </div>
-    );
+  if (loadingGenres || loadingFavorireGenres)
+    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (errorGenres || errorFavorireGenres) {
+    return <ErrorView errorList={[errorGenres, errorFavorireGenres]} />;
+  }
 
   return (
     <GenresTagCloudStyles>

@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { AddFavoriteMovies } from "@addFavoriteMovies/AddFavoriteMovies";
-import { MainPage } from "@mainPage/MainPage";
-import { SignIn } from "@signIn/SignIn";
 import { сheckUsersData } from "utils/checkUsersData";
+import { AddFavoriteMovies } from "components/addFavoriteMovies/AddFavoriteMovies";
+import { SignIn } from "components/signIn/SignIn";
+import { MainPage } from "components/mainPage/MainPage";
 
 function App() {
   сheckUsersData();

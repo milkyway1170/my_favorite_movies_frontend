@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-import { IReleaseYear } from "@types";
+import { IReleaseYear } from "types";
 import {
   ReleaseYearStyles,
   SearchSettingsText,

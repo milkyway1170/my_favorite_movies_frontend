@@ -5,10 +5,10 @@ import { Header } from "components/Header";
 import { SearchedMoviesList } from "./SearchedMoviesList";
 import { SearchSettings } from "./SearchSettings";
 import { MainPageStyles, MoviesBlockStyles } from "styles/styles";
-import { IMovieData } from "@types";
+import { ISearchedMovieData } from "types";
 
 export const AddFavoriteMovies = () => {
-  const [moviesList, setMoviesList] = useState<IMovieData[]>([]);
+  const [moviesList, setMoviesList] = useState<ISearchedMovieData[]>([]);
   const [listView, setListView] = useState<boolean>(true);
 
   return (

@@ -3,17 +3,19 @@ import { useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
 import {
+  LoadigStyles,
   MovieItemBtns,
   MovieItemPosterImgStyles,
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
 } from "styles/styles";
-import { IMovieData, IMovieItem } from "@types";
+import { IMovieData, IMovieItem } from "types";
 import { getPoster } from "utils/getFunctions";
 import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 import { GET_MOVIE_DATA } from "utils/gqlFunctions";
+import { ErrorView } from "components/ErrorView";
 
 export const MovieItem: FC<IMovieItem> = ({
   movieId,
@@ -37,12 +39,12 @@ export const MovieItem: FC<IMovieItem> = ({
   const [isCheck, setIsCheck] = useState<boolean>(false);
 
   useEffect(() => {
-    if (movieId && dataMovieData) {
+    if (dataMovieData) {
       setMovieData({
         id: dataMovieData.getMovieData.id,
         title: dataMovieData.getMovieData.title,
         overview: dataMovieData.getMovieData.overview,
-        posterPath: dataMovieData.getMovieData.poster_path,
+        posterPath: dataMovieData.getMovieData.posterPath,
       });
     }
   }, [dataMovieData]);
@@ -53,13 +55,11 @@ export const MovieItem: FC<IMovieItem> = ({
     }
   };
 
-  if (loadingMovieData) return <div> {t("Loading...")}</div>;
-  if (errorMovieData)
-    return (
-      <div>
-        {t("Error!")} {errorMovieData.message}
-      </div>
-    );
+  if (loadingMovieData) return <LoadigStyles>{t("Loading...")}</LoadigStyles>;
+  if (errorMovieData) {
+    return <ErrorView errorList={[errorMovieData]} />;
+  }
+
   if (!movieData) return;
   return (
     <MovieItemStyles listView={listView}>

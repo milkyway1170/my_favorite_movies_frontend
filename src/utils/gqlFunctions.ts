@@ -32,7 +32,7 @@ export const GET_MOVIE_DATA = gql`
       id
       title
       overview
-      poster_path
+      posterPath
     }
   }
 `;
@@ -50,7 +50,7 @@ export const GET_SEARCHING_MOVIES_LIST = gql`
     $page: Float!
     $year: Float!
     $rating: Float!
-    $genres: [String!]!
+    $genres: [Float!]!
   ) {
     getSearchingMoviesList(
       searchingSettings: {
@@ -63,7 +63,7 @@ export const GET_SEARCHING_MOVIES_LIST = gql`
       id
       title
       overview
-      poster_path
+      posterPath
     }
   }
 `;
@@ -76,11 +76,19 @@ export const SIGN_IN_MUTATION = gql`
   }
 `;
 
-export const ADD_NEW_FAVORITE_GENRE = gql`
-  mutation addFavoriteGenre($newFavoriteGenre: Float!) {
-    addFavoriteGenre(newFavoriteGenre: $newFavoriteGenre) {
-      id
-    }
+export const DELETE_OR_INSERT_GENRE = gql`
+  mutation deleteOrInsertGenre($genreId: Float!, $isFavorite: Boolean!) {
+    deleteOrInsertGenre(
+      genreData: { genreId: $genreId, isFavorite: $isFavorite }
+    )
+  }
+`;
+
+export const DELETE_OR_INSERT_MOVIE = gql`
+  mutation deleteOrInsertMovie($movieId: Float!, $isFavorite: Boolean!) {
+    deleteOrInsertMovie(
+      movieData: { movieId: $movieId, isFavorite: $isFavorite }
+    )
   }
 `;
 
@@ -89,12 +97,6 @@ export const ADD_NEW_FAVORITE_MOVIE = gql`
     addFavoriteMovie(newFavoriteMovie: $newFavoriteMovie) {
       id
     }
-  }
-`;
-
-export const REMOVE_FAVORITE_GENRE = gql`
-  mutation removeFavoriteGenre($genreId: Float!) {
-    removeFavoriteGenre(genreId: $genreId)
   }
 `;
 
