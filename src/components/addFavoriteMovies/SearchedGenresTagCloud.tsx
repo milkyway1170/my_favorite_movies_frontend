@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FC } from "react";
 
 import { IGenreItem, ISearchedGenresTagCloud } from "types";
-import { LoadigStyles, TagsContainerStyles } from "styles/styles";
+import { TagsContainerStyles } from "styles/styles";
 import { GenreItem } from "components/GenreItem";
 import {
   SearchedGenresTagCloudStyles,
@@ -11,6 +11,7 @@ import {
 import { GET_GENRES_LIST } from "utils/gqlFunctions";
 import { useQuery } from "@apollo/client";
 import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 
 export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
   favoriteGenresIdList,
@@ -32,7 +33,6 @@ export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
           (arrayItem: number) => arrayItem !== genreId
         )
       : [...favoriteGenresIdList, genreId];
-    localStorage.setItem("favoriteGenres", JSON.stringify(resultList));
     setFavoriteGenresIdList(resultList);
   };
 
@@ -48,7 +48,7 @@ export const SearchedGenresTagCloud: FC<ISearchedGenresTagCloud> = ({
     ));
   }
 
-  if (loadingGenresList) return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (loadingGenresList) return <Loading />;
   if (errorGenresList) return <ErrorView errorList={[errorGenresList]} />;
 
   return (

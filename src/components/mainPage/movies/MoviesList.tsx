@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { useTranslation } from "react-i18next";
 
-import { LoadigStyles, MoviesListStyles } from "styles/styles";
+import { MoviesListStyles } from "styles/styles";
 import { IMoviesList } from "types";
 import { MovieItem } from "./MovieItem";
 import {
@@ -10,9 +9,9 @@ import {
   REMOVE_FAVORITE_MOVIE,
 } from "utils/gqlFunctions";
 import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 
 export const MoviesList: FC<IMoviesList> = ({ listView }) => {
-  const { t } = useTranslation();
   const {
     loading: loadingFavorireMovies,
     error: errorFavorireMovies,
@@ -45,8 +44,7 @@ export const MoviesList: FC<IMoviesList> = ({ listView }) => {
     );
   }
 
-  if (loadingFavorireMovies)
-    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (loadingFavorireMovies) return <Loading />;
   if (errorFavorireMovies) {
     return <ErrorView errorList={[errorFavorireMovies]} />;
   }

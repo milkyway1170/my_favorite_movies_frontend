@@ -25,11 +25,7 @@ export const Rating: FC<IRating> = ({ rating, setRating }) => {
         min={RATING_VALUE_MIN}
         max={RATING_VALUE_MAX}
         marks={RATING_SLIDER_MARKS}
-        onChange={(
-          event: Event,
-          value: number | number[],
-          activeThumb: number
-        ) => {
+        onChange={(_: Event, value: number | number[]) => {
           if (typeof value === "number") setRating(value);
         }}
       />

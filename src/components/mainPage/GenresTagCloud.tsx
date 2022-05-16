@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { IGenreItem } from "types";
 import {
   GenresTagCloudStyles,
-  LoadigStyles,
   TagsContainerStyles,
   TitleTextStyles,
 } from "styles/styles";
@@ -15,6 +14,7 @@ import {
   DELETE_OR_INSERT_GENRE,
 } from "utils/gqlFunctions";
 import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 
 export const GenresTagCloud = () => {
   const { t } = useTranslation();
@@ -57,8 +57,7 @@ export const GenresTagCloud = () => {
     ));
   }
 
-  if (loadingGenres || loadingFavorireGenres)
-    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (loadingGenres || loadingFavorireGenres) return <Loading />;
   if (errorGenres || errorFavorireGenres) {
     return <ErrorView errorList={[errorGenres, errorFavorireGenres]} />;
   }

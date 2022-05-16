@@ -1,10 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { ErrorView } from "components/ErrorView";
-import { t } from "i18next";
 import { FC } from "react";
 
+import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 import {
-  LoadigStyles,
   MovieItemPosterImgStyles,
   MovieItemStyles,
   MovieItemTextStyles,
@@ -21,7 +20,7 @@ import { SaveItButton } from "./SaveItButton";
 export const SearchedMovieItem: FC<ISearchedMovieItem> = ({
   listView,
   movieData: { id, title, overview, posterPath },
-}): any => {
+}) => {
   const [deleteOrInsertMovieItem] = useMutation(DELETE_OR_INSERT_MOVIE, {
     refetchQueries: [{ query: GET_FAVORITE_MOVIES_LIST }],
   });
@@ -40,13 +39,11 @@ export const SearchedMovieItem: FC<ISearchedMovieItem> = ({
     });
   };
 
-  if (loadingFavorireMovies)
-    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (loadingFavorireMovies || !id) return <Loading />;
   if (errorFavorireMovies) {
     return <ErrorView errorList={[errorFavorireMovies]} />;
   }
 
-  if (!id) return;
   if (dataFavorireMovies) {
     const favorireMoviesIdList = dataFavorireMovies.favoriteMoviesList.map(
       (movieItem: { movieId: number }) => movieItem.movieId
@@ -68,4 +65,5 @@ export const SearchedMovieItem: FC<ISearchedMovieItem> = ({
       </MovieItemStyles>
     );
   }
+  return <Loading />;
 };

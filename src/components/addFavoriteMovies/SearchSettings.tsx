@@ -11,13 +11,15 @@ import {
   SearchSettingsButtonContainerStyles,
   SearchSettingsStyles,
 } from "./addFavoriteMoviesStyles";
-import { LoadigStyles, TitleTextStyles } from "styles/styles";
+import { TitleTextStyles } from "styles/styles";
 import {
   GET_FAVORITE_GENRES_LIST,
   GET_SEARCHING_MOVIES_LIST,
 } from "utils/gqlFunctions";
 import BtnBackToHomePage from "./btnBackToHomePage";
 import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
+import { isEqual } from "lodash";
 
 export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
   const { t } = useTranslation();
@@ -47,19 +49,12 @@ export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
   });
 
   useEffect(() => {
-    if (dataFavorireGenres) {
-      if (localStorage.getItem("favoriteGenres")) {
-        setFavoriteGenresIdList(
-          JSON.parse(localStorage.getItem("favoriteGenres") || "{}")
-        );
-      } else {
-        setFavoriteGenresIdList(
-          dataFavorireGenres.favoriteGenresList.map(
-            (favoriteGenreItem: { genreId: number }) =>
-              favoriteGenreItem.genreId
-          )
-        );
-      }
+    if (dataFavorireGenres && isEqual(favoriteGenresIdList, [])) {
+      setFavoriteGenresIdList(
+        dataFavorireGenres.favoriteGenresList.map(
+          (favoriteGenreItem: { genreId: number }) => favoriteGenreItem.genreId
+        )
+      );
     }
     if (dataSearchingMoviesList) {
       setMoviesList(
@@ -86,8 +81,7 @@ export const SearchSettings: FC<ISearchSettings> = ({ setMoviesList }) => {
     });
   }, [dataSearchingMoviesList, dataFavorireGenres, releaseYear, rating]);
 
-  if (loadingSearchingMoviesList || loadingFavorireGenres)
-    return <LoadigStyles> {t("Loading...")}</LoadigStyles>;
+  if (loadingSearchingMoviesList || loadingFavorireGenres) return <Loading />;
   if (errorSearchingMoviesList || errorFavorireGenres)
     return (
       <ErrorView errorList={[errorSearchingMoviesList, errorFavorireGenres]} />

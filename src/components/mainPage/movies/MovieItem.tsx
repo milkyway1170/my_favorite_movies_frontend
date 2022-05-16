@@ -21,7 +21,7 @@ export const MovieItem: FC<IMovieItem> = ({
   movieId,
   handleDeleteItem,
   listView,
-}): any => {
+}) => {
   const { t } = useTranslation();
   const {
     loading: loadingMovieData,
@@ -55,12 +55,12 @@ export const MovieItem: FC<IMovieItem> = ({
     }
   };
 
-  if (loadingMovieData) return <LoadigStyles>{t("Loading...")}</LoadigStyles>;
+  if (loadingMovieData || !movieData)
+    return <LoadigStyles>{t("Loading...")}</LoadigStyles>;
   if (errorMovieData) {
     return <ErrorView errorList={[errorMovieData]} />;
   }
 
-  if (!movieData) return;
   return (
     <MovieItemStyles listView={listView}>
       <MovieItemTitleTextStyles>{movieData.title}</MovieItemTitleTextStyles>

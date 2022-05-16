@@ -11,7 +11,6 @@ const BtnBackToHomePage = () => {
     <BtnStyles
       onClick={() => {
         navigate("/Home");
-        localStorage.removeItem("favoriteGenres");
       }}
     >
       {t("Back to Home")}
