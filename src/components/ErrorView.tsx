@@ -1,7 +1,7 @@
 import { ApolloError } from "@apollo/client";
 import { FC } from "react";
 
-import { ErrorStyles } from "styles/styles";
+import { ErrorStyles } from "styles/Styles";
 import { IErrorList } from "types";
 
 export const ErrorView: FC<IErrorList> = ({ errorList }) => {

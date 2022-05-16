@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { BtnStyles } from "styles/styles";
+import { BtnStyles } from "styles/Styles";
 
 const AddNewFavoriteMovie = () => {
   const { t } = useTranslation();

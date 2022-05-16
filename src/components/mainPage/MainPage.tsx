@@ -1,7 +1,7 @@
 import { GenresTagCloud } from "./GenresTagCloud";
 import { Greeting } from "./Greeting";
 import { MoviesBlock } from "./movies/MoviesBlock";
-import { MainPageStyles } from "styles/styles";
+import { MainPageStyles } from "styles/Styles";
 import { Header } from "components/Header";
 
 export const MainPage = () => {

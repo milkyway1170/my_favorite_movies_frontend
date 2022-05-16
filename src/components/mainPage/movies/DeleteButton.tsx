@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { MovieItemButtonImgStyles } from "styles/styles";
+import { MovieItemButtonImgStyles } from "styles/Styles";
 import { IDeleteButton } from "types";
 import deleteIcon from "./media/cross.png";
 

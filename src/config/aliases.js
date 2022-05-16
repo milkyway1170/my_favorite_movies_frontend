@@ -3,7 +3,7 @@ const aliases = (prefix = `src`) => ({
   '@signIn': `${prefix}/components/signIn`,
   '@mainPage': `${prefix}/components/mainPage`,
   '@config': `${prefix}/config`,
-  '@styles': `${prefix}/styles/styles`,
+  '@styles': `${prefix}/styles/Styles`,
   '@utils': `${prefix}/utils`,
   '@types': `${prefix}/types`,
   '@signInStyles': `${prefix}/components/signIn/signInStyles`,

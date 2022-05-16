@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
-import { MoviesListStyles } from "styles/styles";
+import { MoviesListStyles } from "styles/Styles";
 import { IMoviesList } from "types";
 import { MovieItem } from "./MovieItem";
 import {

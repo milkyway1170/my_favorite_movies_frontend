@@ -11,7 +11,7 @@ import {
   SearchSettingsButtonContainerStyles,
   SearchSettingsStyles,
 } from "./addFavoriteMoviesStyles";
-import { TitleTextStyles } from "styles/styles";
+import { TitleTextStyles } from "styles/Styles";
 import {
   GET_FAVORITE_GENRES_LIST,
   GET_SEARCHING_MOVIES_LIST,

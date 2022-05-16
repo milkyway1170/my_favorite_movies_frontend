@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FC } from "react";
 
 import { IGenreItem, ISearchedGenresTagCloud } from "types";
-import { TagsContainerStyles } from "styles/styles";
+import { TagsContainerStyles } from "styles/Styles";
 import { GenreItem } from "components/GenreItem";
 import {
   SearchedGenresTagCloudStyles,

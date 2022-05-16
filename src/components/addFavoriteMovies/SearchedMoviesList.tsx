@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { MoviesListStyles } from "styles/styles";
+import { MoviesListStyles } from "styles/Styles";
 import { ISearchedMovieData, ISearchedMoviesList } from "types";
 import { SearchedMovieItem } from "./SearchedMovieItem";
 

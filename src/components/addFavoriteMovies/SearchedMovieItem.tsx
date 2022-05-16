@@ -8,7 +8,7 @@ import {
   MovieItemStyles,
   MovieItemTextStyles,
   MovieItemTitleTextStyles,
-} from "styles/styles";
+} from "styles/Styles";
 import { ISearchedMovieItem } from "types";
 import { getPoster } from "utils/getFunctions";
 import {

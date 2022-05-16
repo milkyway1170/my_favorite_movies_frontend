@@ -4,7 +4,7 @@ import { ChangeView } from "components/ChangeView";
 import { Header } from "components/Header";
 import { SearchedMoviesList } from "./SearchedMoviesList";
 import { SearchSettings } from "./SearchSettings";
-import { MainPageStyles, MoviesBlockStyles } from "styles/styles";
+import { MainPageStyles, MoviesBlockStyles } from "styles/Styles";
 import { ISearchedMovieData } from "types";
 
 export const AddFavoriteMovies = () => {

@@ -6,7 +6,7 @@ import {
   GenresTagCloudStyles,
   TagsContainerStyles,
   TitleTextStyles,
-} from "styles/styles";
+} from "styles/Styles";
 import { GenreItem } from "components/GenreItem";
 import {
   GET_FAVORITE_GENRES_LIST,

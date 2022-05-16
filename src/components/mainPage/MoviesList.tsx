@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
-import { MoviesListStyles } from "styles/styles";
+import { MoviesListStyles } from "styles/Styles";
 import { IMoviesList } from "types";
 import { MovieItem } from "./movies/MovieItem";
 import {

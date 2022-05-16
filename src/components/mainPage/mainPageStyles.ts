@@ -1,4 +1,4 @@
-import { TitleTextStyles } from "styles/styles";
+import { TitleTextStyles } from "styles/Styles";
 import styled from "styled-components";
 
 import tw from "twin.macro";
