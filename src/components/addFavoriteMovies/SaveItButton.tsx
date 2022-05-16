@@ -1,29 +1,21 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ISaveItButton } from "@types";
-import { deleteOrInsertInArray, getData } from "utils/getFunctions";
+import { ISaveItButton } from "types";
 import { SaveItButtonStyles } from "./addFavoriteMoviesStyles";
 
-export const SaveItButton: FC<ISaveItButton> = ({ movieId }) => {
+export const SaveItButton: FC<ISaveItButton> = ({
+  handleChangeMovieItem,
+  movieId,
+  isSave,
+}) => {
   const { t } = useTranslation();
-  const [isSave, setIsSave] = useState<boolean>(
-    getData("favoriteMovies").includes(movieId)
-  );
-
-  const handleSaveItButton = () => {
-    if (movieId) {
-      setIsSave(!isSave);
-      const resultList = deleteOrInsertInArray({
-        checkedArray: getData("favoriteMovies"),
-        checkedArrayItem: movieId,
-      });
-      localStorage.setItem("favoriteMovies", JSON.stringify(resultList));
-    }
-  };
 
   return (
-    <SaveItButtonStyles isSave={isSave} onClick={() => handleSaveItButton()}>
+    <SaveItButtonStyles
+      isSave={isSave}
+      onClick={async () => await handleChangeMovieItem(movieId, isSave)}
+    >
       {t("Save it!")}
     </SaveItButtonStyles>
   );

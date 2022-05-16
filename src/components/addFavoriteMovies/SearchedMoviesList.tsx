@@ -1,14 +1,14 @@
 import { FC } from "react";
 
 import { MoviesListStyles } from "styles/styles";
-import { IMovieData, ISearchedMoviesList } from "@types";
+import { ISearchedMovieData, ISearchedMoviesList } from "types";
 import { SearchedMovieItem } from "./SearchedMovieItem";
 
 export const SearchedMoviesList: FC<ISearchedMoviesList> = ({
   listView,
   moviesList,
 }) => {
-  const listItems = moviesList.map((movieData: IMovieData) => (
+  const listItems = moviesList.map((movieData: ISearchedMovieData) => (
     <SearchedMovieItem
       movieData={movieData}
       listView={listView}

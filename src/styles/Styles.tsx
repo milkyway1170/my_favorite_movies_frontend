@@ -108,3 +108,22 @@ export const BtnStyles = styled.button`
     shadow-xl
   `}
 `;
+
+export const ErrorStyles = styled.div`
+  ${tw`
+    bg-red-500
+    text-white
+    text-lg
+    text-center
+    mx-5 my-2
+    px-5 py-2 
+    rounded-md
+    shadow-xl
+`}
+`;
+
+export const LoadingStyles = styled(ErrorStyles)`
+  ${tw`
+    bg-[#1976d2]
+`}
+`;

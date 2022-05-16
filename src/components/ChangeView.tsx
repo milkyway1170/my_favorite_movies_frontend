@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ISwitch } from "@types";
+import { ISwitch } from "types";
 import listViewIcon from "./media/list.png";
 import blockViewIcon from "./media/menu.png";
 import { ChangeViewImgStyles, ChangeViewStyles } from "styles/styles";

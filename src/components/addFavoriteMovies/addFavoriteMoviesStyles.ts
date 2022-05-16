@@ -41,3 +41,7 @@ export const RatingStyles = styled(ReleaseYearStyles)`
     }
   }
 `;
+
+export const SearchSettingsButtonContainerStyles = styled.div`
+  ${tw`flex flex-row justify-between items-center h-14`}
+`;

@@ -1,31 +1,53 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 
 import { MoviesListStyles } from "styles/styles";
-import { IMoviesList } from "@types";
-import { getData } from "utils/getFunctions";
+import { IMoviesList } from "types";
 import { MovieItem } from "./MovieItem";
+import {
+  GET_FAVORITE_MOVIES_LIST,
+  REMOVE_FAVORITE_MOVIE,
+} from "utils/gqlFunctions";
+import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 
 export const MoviesList: FC<IMoviesList> = ({ listView }) => {
-  const [moviesIdList, setMoviesIdList] = useState<number[]>(
-    getData("favoriteMovies")
-  );
+  const {
+    loading: loadingFavorireMovies,
+    error: errorFavorireMovies,
+    data: dataFavorireMovies,
+  } = useQuery(GET_FAVORITE_MOVIES_LIST);
+  const [removeMovieItem] = useMutation(REMOVE_FAVORITE_MOVIE, {
+    refetchQueries: [{ query: GET_FAVORITE_MOVIES_LIST }],
+  });
 
   const handleDeleteItem = (id: string) => {
     const index = parseInt(id);
-    setMoviesIdList(moviesIdList.filter((id) => id !== index));
+    removeMovieItem({
+      variables: { movieId: index },
+    });
   };
+  let listItems = [];
+  if (dataFavorireMovies) {
+    listItems = dataFavorireMovies.favoriteMoviesList.map(
+      (movieItem: { movieId: number }, index: number) => (
+        <MovieItem
+          index={index + 1}
+          movieId={movieItem.movieId}
+          listView={listView}
+          key={movieItem.movieId}
+          handleDeleteItem={(id: string) => {
+            handleDeleteItem(id);
+          }}
+        />
+      )
+    );
+  }
 
-  const listItems = moviesIdList.map((movieId: number, index: number) => (
-    <MovieItem
-      index={index + 1}
-      movieId={movieId}
-      listView={listView}
-      key={movieId}
-      handleDeleteItem={(id: string) => {
-        handleDeleteItem(id);
-      }}
-    />
-  ));
+  if (loadingFavorireMovies) return <Loading />;
+  if (errorFavorireMovies) {
+    return <ErrorView errorList={[errorFavorireMovies]} />;
+  }
 
   return <MoviesListStyles listView={listView}>{listItems}</MoviesListStyles>;
 };

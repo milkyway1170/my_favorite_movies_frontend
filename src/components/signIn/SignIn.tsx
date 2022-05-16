@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Submit from "./Submit";
-import { ISignIn } from "@types";
+import { ISignIn } from "types";
 import {
   SignInDivStyles,
   SignInFormStyles,
