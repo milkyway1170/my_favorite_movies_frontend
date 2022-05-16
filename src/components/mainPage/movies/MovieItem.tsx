@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 
 import {
-  LoadigStyles,
   MovieItemBtns,
   MovieItemPosterImgStyles,
   MovieItemStyles,
@@ -16,6 +15,7 @@ import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 import { GET_MOVIE_DATA } from "utils/gqlFunctions";
 import { ErrorView } from "components/ErrorView";
+import { Loading } from "components/Loading";
 
 export const MovieItem: FC<IMovieItem> = ({
   movieId,
@@ -55,8 +55,7 @@ export const MovieItem: FC<IMovieItem> = ({
     }
   };
 
-  if (loadingMovieData || !movieData)
-    return <LoadigStyles>{t("Loading...")}</LoadigStyles>;
+  if (loadingMovieData || !movieData) return <Loading />;
   if (errorMovieData) {
     return <ErrorView errorList={[errorMovieData]} />;
   }

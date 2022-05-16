@@ -122,7 +122,7 @@ export const ErrorStyles = styled.div`
 `}
 `;
 
-export const LoadigStyles = styled(ErrorStyles)`
+export const LoadingStyles = styled(ErrorStyles)`
   ${tw`
     bg-[#1976d2]
 `}
