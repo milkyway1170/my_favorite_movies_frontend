@@ -3,7 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 
 const getLink = () => {
   const link = createHttpLink({
-    uri: "http://localhost:3001/graphql",
+    uri: "https://movies-bublik-api.kodep.team/graphql",
   });
 
   const authLink = setContext((_, { headers }) => {
