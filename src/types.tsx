@@ -4,6 +4,7 @@ import { ApolloError } from "@apollo/client/errors";
 export interface ISingInInput {
   lableText: string;
   name: string;
+  type: string;
   input?: string;
 }
 

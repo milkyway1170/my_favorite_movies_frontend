@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
 import { useMutation } from "@apollo/client";
 import { SIGN_IN_MUTATION } from "utils/gqlFunctions";
+import { ErrorView } from "components/ErrorView";
 
 export const SignIn: FC = () => {
   const navigate = useNavigate();
@@ -29,15 +30,16 @@ export const SignIn: FC = () => {
         setVerificationStatus(true);
       }
     },
+    onError(error) {
+      setVerificationStatus(false);
+      console.log(error);
+    },
   });
 
   const onSubmit = (value: ISignIn): void => {
     verification({
       variables: { login: value.login, password: value.password },
     });
-    if (error) {
-      setVerificationStatus(false);
-    }
   };
 
   return (
@@ -48,8 +50,16 @@ export const SignIn: FC = () => {
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
           <SignInFormStyles onSubmit={handleSubmit}>
-            <SingInInput name="login" lableText={t("Username or email")} />
-            <SingInInput name="password" lableText={t("Password")} />
+            <SingInInput
+              name="login"
+              type="text"
+              lableText={t("Username or email")}
+            />
+            <SingInInput
+              name="password"
+              type="password"
+              lableText={t("Password")}
+            />
             <SignInDivStyles>
               <Submit />
             </SignInDivStyles>
