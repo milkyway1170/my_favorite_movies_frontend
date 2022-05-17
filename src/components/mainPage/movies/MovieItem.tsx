@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { useTranslation } from "react-i18next";
 
 import {
   MovieItemBtns,
@@ -22,7 +21,6 @@ export const MovieItem: FC<IMovieItem> = ({
   handleDeleteItem,
   listView,
 }) => {
-  const { t } = useTranslation();
   const {
     loading: loadingMovieData,
     error: errorMovieData,
@@ -40,11 +38,12 @@ export const MovieItem: FC<IMovieItem> = ({
 
   useEffect(() => {
     if (dataMovieData) {
+      console.log(dataMovieData.getMovieData.posterPath);
       setMovieData({
         id: dataMovieData.getMovieData.id,
         title: dataMovieData.getMovieData.title,
         overview: dataMovieData.getMovieData.overview,
-        posterPath: dataMovieData.getMovieData.posterPath,
+        posterPath: dataMovieData?.getMovieData.posterPath,
       });
     }
   }, [dataMovieData]);

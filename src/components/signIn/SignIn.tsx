@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -16,13 +16,12 @@ import SingInInput from "./SingInInput";
 import { FailVerification } from "./FailVerification";
 import { useMutation } from "@apollo/client";
 import { SIGN_IN_MUTATION } from "utils/gqlFunctions";
-import { ErrorView } from "components/ErrorView";
 
 export const SignIn: FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [verificationStatus, setVerificationStatus] = useState<boolean>(true);
-  const [verification, { error }] = useMutation(SIGN_IN_MUTATION, {
+  const [verification] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: (data) => {
       if (data) {
         localStorage.setItem("token", data.signIn.token);

@@ -127,3 +127,8 @@ export interface IDeleteOrInsertInArray {
 export interface IErrorList {
   errorList: (ApolloError | undefined)[];
 }
+
+export interface ProtectedRouteProps {
+  authenticationPath: string;
+  outlet: JSX.Element;
+}
