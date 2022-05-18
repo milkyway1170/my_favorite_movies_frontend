@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { useTranslation } from "react-i18next";
 
 import {
   MovieItemBtns,
@@ -18,11 +17,12 @@ import { ErrorView } from "components/ErrorView";
 import { Loading } from "components/Loading";
 
 export const MovieItem: FC<IMovieItem> = ({
+  isWatched,
   movieId,
   handleDeleteItem,
+  handleChangeItemStatus,
   listView,
 }) => {
-  const { t } = useTranslation();
   const {
     loading: loadingMovieData,
     error: errorMovieData,
@@ -36,7 +36,6 @@ export const MovieItem: FC<IMovieItem> = ({
     overview: "",
     posterPath: "",
   });
-  const [isCheck, setIsCheck] = useState<boolean>(false);
 
   useEffect(() => {
     if (dataMovieData) {
@@ -44,7 +43,7 @@ export const MovieItem: FC<IMovieItem> = ({
         id: dataMovieData.getMovieData.id,
         title: dataMovieData.getMovieData.title,
         overview: dataMovieData.getMovieData.overview,
-        posterPath: dataMovieData.getMovieData.posterPath,
+        posterPath: dataMovieData?.getMovieData.posterPath,
       });
     }
   }, [dataMovieData]);
@@ -55,13 +54,19 @@ export const MovieItem: FC<IMovieItem> = ({
     }
   };
 
+  const handleChangeStatus = () => {
+    if (movieData.id) {
+      return handleChangeItemStatus(movieData.id.toString());
+    }
+  };
+
   if (loadingMovieData || !movieData) return <Loading />;
   if (errorMovieData) {
     return <ErrorView errorList={[errorMovieData]} />;
   }
 
   return (
-    <MovieItemStyles listView={listView}>
+    <MovieItemStyles listView={listView} isWatched={isWatched}>
       <MovieItemTitleTextStyles>{movieData.title}</MovieItemTitleTextStyles>
       <MovieItemPosterImgStyles
         listView={listView}
@@ -71,8 +76,8 @@ export const MovieItem: FC<IMovieItem> = ({
       <MovieItemTextStyles>{movieData.overview}</MovieItemTextStyles>
       <MovieItemBtns>
         <CheckButton
-          handleChange={(listView: boolean) => setIsCheck(listView)}
-          listView={isCheck}
+          handleChange={() => handleChangeStatus()}
+          listView={listView}
         />
         <DeleteButton
           listView={listView}

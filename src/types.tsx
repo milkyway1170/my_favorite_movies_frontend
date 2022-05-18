@@ -4,6 +4,7 @@ import { ApolloError } from "@apollo/client/errors";
 export interface ISingInInput {
   lableText: string;
   name: string;
+  type: string;
   input?: string;
 }
 
@@ -72,7 +73,9 @@ export interface IMovieItem {
   index: number;
   listView: boolean;
   movieId: number;
+  isWatched: boolean;
   handleDeleteItem: (id: string) => void;
+  handleChangeItemStatus: (id: string) => void;
 }
 
 export interface ISearchedMovieItem {
@@ -125,4 +128,9 @@ export interface IDeleteOrInsertInArray {
 
 export interface IErrorList {
   errorList: (ApolloError | undefined)[];
+}
+
+export interface CustomRouteProps {
+  authenticationPath: string;
+  outlet: JSX.Element;
 }

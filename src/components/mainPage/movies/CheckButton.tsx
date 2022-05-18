@@ -1,15 +1,12 @@
 import { FC } from "react";
 
 import { MovieItemButtonImgStyles } from "styles/Styles";
-import { ISwitch } from "types";
+import { IDeleteButton } from "types";
 import checkIcon from "./media/checking-mark.png";
 
-export const CheckButton: FC<ISwitch> = ({ handleChange, listView }) => {
-  const handleCheckButton = () => {
-    return handleChange(!listView);
-  };
+export const CheckButton: FC<IDeleteButton> = ({ handleChange, listView }) => {
   return (
-    <button onClick={() => handleCheckButton()}>
+    <button onClick={() => handleChange()}>
       <MovieItemButtonImgStyles listView={listView} src={checkIcon} />
     </button>
   );

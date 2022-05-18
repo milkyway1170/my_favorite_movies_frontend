@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { delete_cookie } from "sfcookies";
 
 import { LogoutButtonStyles } from "./mainPageStyles";
 
@@ -8,7 +9,7 @@ export const Logout = () => {
   const navigate = useNavigate();
 
   const deleteSession = () => {
-    localStorage.removeItem("token");
+    delete_cookie("token");
     navigate("/");
   };
 

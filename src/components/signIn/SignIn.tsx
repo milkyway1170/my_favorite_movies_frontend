@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { bake_cookie } from "sfcookies";
 
 import Submit from "./Submit";
 import { ISignIn } from "types";
@@ -21,13 +22,17 @@ export const SignIn: FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [verificationStatus, setVerificationStatus] = useState<boolean>(true);
-  const [verification, { error }] = useMutation(SIGN_IN_MUTATION, {
+  const [verification] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: (data) => {
       if (data) {
-        localStorage.setItem("token", data.signIn.token);
+        bake_cookie("token", data.signIn.token);
         navigate("/home");
         setVerificationStatus(true);
       }
+    },
+    onError(error) {
+      setVerificationStatus(false);
+      console.log(error);
     },
   });
 
@@ -35,9 +40,6 @@ export const SignIn: FC = () => {
     verification({
       variables: { login: value.login, password: value.password },
     });
-    if (error) {
-      setVerificationStatus(false);
-    }
   };
 
   return (
@@ -48,8 +50,16 @@ export const SignIn: FC = () => {
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
           <SignInFormStyles onSubmit={handleSubmit}>
-            <SingInInput name="login" lableText={t("Username or email")} />
-            <SingInInput name="password" lableText={t("Password")} />
+            <SingInInput
+              name="login"
+              type="text"
+              lableText={t("Username or email")}
+            />
+            <SingInInput
+              name="password"
+              type="password"
+              lableText={t("Password")}
+            />
             <SignInDivStyles>
               <Submit />
             </SignInDivStyles>
