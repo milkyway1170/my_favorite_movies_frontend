@@ -17,8 +17,10 @@ import { ErrorView } from "components/ErrorView";
 import { Loading } from "components/Loading";
 
 export const MovieItem: FC<IMovieItem> = ({
+  isWatched,
   movieId,
   handleDeleteItem,
+  handleChangeItemStatus,
   listView,
 }) => {
   const {
@@ -34,11 +36,9 @@ export const MovieItem: FC<IMovieItem> = ({
     overview: "",
     posterPath: "",
   });
-  const [isCheck, setIsCheck] = useState<boolean>(false);
 
   useEffect(() => {
     if (dataMovieData) {
-      console.log(dataMovieData.getMovieData.posterPath);
       setMovieData({
         id: dataMovieData.getMovieData.id,
         title: dataMovieData.getMovieData.title,
@@ -54,13 +54,19 @@ export const MovieItem: FC<IMovieItem> = ({
     }
   };
 
+  const handleChangeStatus = () => {
+    if (movieData.id) {
+      return handleChangeItemStatus(movieData.id.toString());
+    }
+  };
+
   if (loadingMovieData || !movieData) return <Loading />;
   if (errorMovieData) {
     return <ErrorView errorList={[errorMovieData]} />;
   }
 
   return (
-    <MovieItemStyles listView={listView}>
+    <MovieItemStyles listView={listView} isWatched={isWatched}>
       <MovieItemTitleTextStyles>{movieData.title}</MovieItemTitleTextStyles>
       <MovieItemPosterImgStyles
         listView={listView}
@@ -70,8 +76,8 @@ export const MovieItem: FC<IMovieItem> = ({
       <MovieItemTextStyles>{movieData.overview}</MovieItemTextStyles>
       <MovieItemBtns>
         <CheckButton
-          handleChange={(listView: boolean) => setIsCheck(listView)}
-          listView={isCheck}
+          handleChange={() => handleChangeStatus()}
+          listView={listView}
         />
         <DeleteButton
           listView={listView}

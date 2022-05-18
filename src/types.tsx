@@ -73,7 +73,9 @@ export interface IMovieItem {
   index: number;
   listView: boolean;
   movieId: number;
+  isWatched: boolean;
   handleDeleteItem: (id: string) => void;
+  handleChangeItemStatus: (id: string) => void;
 }
 
 export interface ISearchedMovieItem {

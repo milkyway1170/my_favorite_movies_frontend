@@ -70,12 +70,16 @@ export const MoviesListStyles = styled.ul<{ listView: boolean }>`
     props.listView ? [tw`flex-col`] : [tw`flex-row justify-between`]}
 `;
 
-export const MovieItemStyles = styled.li<{ listView: boolean }>`
+export const MovieItemStyles = styled.li<{
+  listView: boolean;
+  isWatched?: boolean;
+}>`
   ${tw`bg-[#9ad9f5] mt-4 rounded flex items-center mx-4 px-10 py-5`}
   ${(props) =>
     props.listView
       ? [tw`flex-row`]
       : [tw`flex-col w-1/4 self-stretch content-between`]}
+  ${(props) => (props.isWatched ? [tw`bg-[#1976d2]`] : [tw`bg-[#9ad9f5]`])}
 `;
 
 export const MovieItemPosterImgStyles = styled.img<{ listView: boolean }>`

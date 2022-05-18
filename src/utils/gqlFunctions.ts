@@ -41,6 +41,7 @@ export const GET_FAVORITE_MOVIES_LIST = gql`
   query {
     favoriteMoviesList {
       movieId
+      isWatched
     }
   }
 `;
@@ -103,5 +104,13 @@ export const ADD_NEW_FAVORITE_MOVIE = gql`
 export const REMOVE_FAVORITE_MOVIE = gql`
   mutation removeFavoriteMovie($movieId: Float!) {
     removeFavoriteMovie(movieId: $movieId)
+  }
+`;
+
+export const CHANGE_MOVIE_WATCH_STATUS = gql`
+  mutation changeWatchedStatus($movieId: Float!) {
+    changeWatchedStatus(movieId: $movieId) {
+      movieId
+    }
   }
 `;
