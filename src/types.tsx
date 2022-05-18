@@ -130,7 +130,7 @@ export interface IErrorList {
   errorList: (ApolloError | undefined)[];
 }
 
-export interface ProtectedRouteProps {
+export interface CustomRouteProps {
   authenticationPath: string;
   outlet: JSX.Element;
 }

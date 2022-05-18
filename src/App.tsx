@@ -4,12 +4,18 @@ import { AddFavoriteMovies } from "components/addFavoriteMovies/AddFavoriteMovie
 import { SignIn } from "components/signIn/SignIn";
 import { MainPage } from "components/mainPage/MainPage";
 import ProtectedRoute from "components/ProtectedRoute";
+import PublicRoute from "components/PublicRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route
+          path="/"
+          element={
+            <PublicRoute authenticationPath={"/home"} outlet={<SignIn />} />
+          }
+        />
         <Route
           path="/home"
           element={
