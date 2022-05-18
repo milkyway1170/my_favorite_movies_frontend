@@ -1,5 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { isEqual } from "lodash";
+import { read_cookie } from "sfcookies";
 
 const getLink = () => {
   const link = createHttpLink({
@@ -7,12 +9,14 @@ const getLink = () => {
   });
 
   const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem("token");
+    const token = read_cookie("token");
 
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : "",
+        authorization: !isEqual(read_cookie("token"), [])
+          ? `Bearer ${token}`
+          : "",
       },
     };
   });

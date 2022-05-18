@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { bake_cookie } from "sfcookies";
 
 import Submit from "./Submit";
 import { ISignIn } from "types";
@@ -24,7 +25,7 @@ export const SignIn: FC = () => {
   const [verification] = useMutation(SIGN_IN_MUTATION, {
     onCompleted: (data) => {
       if (data) {
-        localStorage.setItem("token", data.signIn.token);
+        bake_cookie("token", data.signIn.token);
         navigate("/home");
         setVerificationStatus(true);
       }
